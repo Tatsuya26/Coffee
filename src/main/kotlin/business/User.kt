@@ -1,9 +1,9 @@
 package business
 
 class User (_userName: String, _email: String, _profilePicture: String){
-    private val userName: String
-    private val email: String
-    private val profilePicture: String
+    private var userName: String
+    private var email: String
+    private var profilePicture: String
 
     init {
         userName = _userName
