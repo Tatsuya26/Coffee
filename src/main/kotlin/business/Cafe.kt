@@ -1,11 +1,14 @@
 package business
 
-class Cafe (_id: String, _nome: String, _rating: Float, _endereco: String, _estado: Boolean){
+class Cafe (_id: String, _nome: String, _rating: Float, _endereco: String, _estado: Boolean, _contacto: Contacto){
     private var id: String
     private var nome: String
     private var rating: Float
     private var endereco: String
     private var estado: Boolean
+    private var contacto: Contacto
+    private var fotos: MutableList<String>
+    private var horarios: MutableList<Horario>
 
     init {
         id = _id
@@ -13,6 +16,9 @@ class Cafe (_id: String, _nome: String, _rating: Float, _endereco: String, _esta
         rating = _rating
         endereco = _endereco
         estado = _estado
+        contacto = _contacto
+        fotos = mutableListOf()
+        horarios = mutableListOf()
     }
 
     fun getId(): String{
@@ -35,4 +41,15 @@ class Cafe (_id: String, _nome: String, _rating: Float, _endereco: String, _esta
         return this.estado
     }
 
+    fun getContacto(): Contacto {
+        return this.contacto
+    }
+
+    fun getFotos(): List<String> {
+        return this.fotos
+    }
+
+    fun getHorarios(): List<Horario> {
+        return this.horarios
+    }
 }
