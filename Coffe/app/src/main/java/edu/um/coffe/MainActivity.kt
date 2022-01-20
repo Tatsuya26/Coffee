@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, LoginFragment.newInstance())
                 .commitNow()
         }
+
     }
 
 

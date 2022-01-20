@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
-    android:backgroundTintMode="screen"
+    android:background="@drawable/loginbackground"
+    android:backgroundTint="#B87502"
+    android:backgroundTintMode="multiply"
     tools:context=".MainActivity">
 
     <TextView
@@ -85,10 +86,10 @@
         android:layout_marginTop="100dp"
         android:background="@android:color/transparent"
         android:contentDescription="Button for login"
-        android:minWidth="40dp"
-        android:minHeight="40dp"
+        android:minWidth="50dp"
+        android:minHeight="50dp"
         android:scaleType="center"
-        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:src="@drawable/ic_baseline_forward_24"
         tools:ignore="TouchTargetSizeCheck" />
 
 </RelativeLayout>

@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
-    android:backgroundTintMode="screen"
+    android:background="@drawable/loginbackground"
+    android:backgroundTint="#B87502"
+    android:backgroundTintMode="multiply"
     tools:context=".MainActivity">
 
     <TextView
@@ -38,10 +39,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rusernameText"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="9dp"
         android:autofillHints="name"
         android:background="#56FDFAFA"
-        android:backgroundTint="#DDCECE"
+        android:backgroundTint="#59FFF9F7"
         android:gravity="center"
         android:hint="Escreve aqui o teu username"
         android:inputType="textPersonName"
@@ -68,7 +69,7 @@
         android:layout_marginTop="10dp"
         android:autofillHints="password"
         android:background="#56FDFAFA"
-        android:backgroundTint="#DDCECE"
+        android:backgroundTint="#81DDCECE"
         android:gravity="center"
         android:hint="Escreve aqui a tua password"
         android:inputType="textPassword"
@@ -95,12 +96,13 @@
         android:layout_marginTop="10dp"
         android:autofillHints="password"
         android:background="#56FDFAFA"
-        android:backgroundTint="#DDCECE"
+        android:backgroundTint="#80DDCECE"
         android:gravity="center"
         android:hint="Escreve aqui o teu email"
         android:inputType="textEmailAddress"
         android:textColorHint="@android:color/darker_gray"
         tools:ignore="TouchTargetSizeCheck" />
+
     <ImageButton
         android:id="@+id/signup"
         android:layout_width="wrap_content"
@@ -113,6 +115,6 @@
         android:minWidth="40dp"
         android:minHeight="40dp"
         android:scaleType="center"
-        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:src="@drawable/ic_baseline_forward_24"
         tools:ignore="TouchTargetSizeCheck" />
 </RelativeLayout>
