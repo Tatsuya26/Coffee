@@ -15,6 +15,18 @@
         <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/layout/userlogin_fragment.xml" value="0.3671875" />
         <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/layout/userregister_fragment.xml" value="0.3671875" />
         <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/menu/menu_main.xml" value="0.20208333333333334" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.3640625" />
+        <entry key="app/src/main/res/drawable/ic_baseline_person_pin_24.xml" value="0.3640625" />
+        <entry key="app/src/main/res/font/aclonica.xml" value="0.378125" />
+        <entry key="app/src/main/res/font/acme.xml" value="0.378125" />
+        <entry key="app/src/main/res/font/alfa_slab_one.xml" value="0.378125" />
+        <entry key="app/src/main/res/font/amarante.xml" value="0.378125" />
+        <entry key="app/src/main/res/font/anaheim.xml" value="0.378125" />
+        <entry key="app/src/main/res/font/marko_one.xml" value="0.378125" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.296195652173913" />
+        <entry key="app/src/main/res/layout/login_fragment.xml" value="0.296195652173913" />
+        <entry key="app/src/main/res/layout/menu_fragment.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/userlogin_fragment.xml" value="0.304" />
       </map>
     </option>
   </component>

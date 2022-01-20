@@ -22,22 +22,21 @@
         android:textStyle="bold|italic" />
 
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/entrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/autenticacao"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
         android:backgroundTint="@android:color/transparent"
-        app:cornerRadius="8dp"
-        android:textStyle="bold"
-        app:rippleColor="#33AAAAAA"
-        app:strokeColor="@android:color/holo_orange_light"
-        app:strokeWidth="5dp"
         android:text="LOGIN"
         android:textSize="60dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"/>
+        android:textStyle="bold"
+        app:cornerRadius="8dp"
+        app:rippleColor="#33AAAAAA"
+        app:strokeColor="@android:color/holo_orange_light"
+        app:strokeWidth="5dp" />
 
     <TextView
         android:id="@+id/texto1"
