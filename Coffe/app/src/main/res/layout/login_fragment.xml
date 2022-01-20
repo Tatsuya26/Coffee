@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/autenticacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/marko_one"
+        android:layout_marginTop="100sp"
+        android:gravity="center"
+        android:text="@string/auth"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="95sp"
+        android:textStyle="bold|italic" />
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/entrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/autenticacao"
+        android:backgroundTint="@android:color/transparent"
+        app:cornerRadius="8dp"
+        android:textStyle="bold"
+        app:rippleColor="#33AAAAAA"
+        app:strokeColor="@android:color/holo_orange_light"
+        app:strokeWidth="5dp"
+        android:text="LOGIN"
+        android:textSize="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"/>
+
+    <TextView
+        android:id="@+id/texto1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/entrar"
+        android:layout_marginTop="10dp"
+        android:text="Não tem conta?"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:layout_alignLeft= "@id/entrar"/>
+
+    <TextView
+        android:id="@+id/cliqueaqui"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/entrar"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@+id/texto1"
+        android:clickable="true"
+        android:singleLine="false"
+        android:text="@string/registar"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="20dp" />
+
+
+
+
+</RelativeLayout>

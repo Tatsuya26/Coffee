@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/drawable/ic_baseline_person_pin_24.xml" value="0.21822916666666667" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/layout/activity_main.xml" value="0.3641304347826087" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/layout/content_main.xml" value="0.3671875" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/layout/fragment_first.xml" value="0.3671875" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/layout/fragment_login.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/layout/fragment_second.xml" value="0.3671875" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/layout/login_fragment.xml" value="0.25" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/layout/main_activity.xml" value="0.3671875" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/layout/main_fragment.xml" value="0.3671875" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/layout/userlogin_fragment.xml" value="0.3671875" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/layout/userregister_fragment.xml" value="0.3671875" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/Coffe/app/src/main/res/menu/menu_main.xml" value="0.20208333333333334" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.3671875" />
+      </ProjectState>
+    </option>
+  </component>
+</project>

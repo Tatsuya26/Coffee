@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/LoginFragment">
+
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="edu.um.coffe.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/login_fragment">
+
+        <action
+            android:id="@+id/action_LoginFragment_to_UserLoginFragment"
+            app:destination="@id/UserLoginFragment" />
+        <action
+            android:id="@+id/action_LoginFragment_to_UserRegisterFragment"
+            app:destination="@id/UserRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/UserLoginFragment"
+        android:name="edu.um.coffe.login.UserLoginFragment"
+        android:label="UserLoginFragment"
+        tools:layout="@layout/userlogin_fragment">
+        <action
+            android:id="@+id/action_UserLoginFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/UserRegisterFragment"
+        android:name="edu.um.coffe.register.UserRegisterFragment"
+        android:label="UserRegisterFragment"
+        tools:layout="@layout/userregister_fragment">
+        <action
+            android:id="@+id/action_UserRegisterFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+    </fragment>
+</navigation>
