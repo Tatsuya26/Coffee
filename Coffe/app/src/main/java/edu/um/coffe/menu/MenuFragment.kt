@@ -1,10 +1,10 @@
 package edu.um.coffe.menu
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.EditText
+import android.widget.Toast
+import androidx.core.view.GestureDetectorCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -41,6 +41,7 @@ class MenuFragment : Fragment() {
         view.findViewById<EditText>(R.id.lSearch_bar).addTextChangedListener {
             rvCafes.adapter = CafeAdapter(cafes)
         }
+
         return view
     }
 

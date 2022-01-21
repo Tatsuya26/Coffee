@@ -36,7 +36,7 @@ class LoginFragment : Fragment() {
         loginbtn.setOnClickListener {
             fragmentManager?.apply {
                 beginTransaction()
-                    .add(R.id.container, UserLoginFragment.newInstance())
+                    .replace(R.id.container, UserLoginFragment.newInstance())
                     .addToBackStack(null)
                     .commit()
             }
@@ -45,7 +45,7 @@ class LoginFragment : Fragment() {
         registText.setOnClickListener {
             fragmentManager?.apply {
                 beginTransaction()
-                    .add(R.id.container, UserRegisterFragment.newInstance())
+                    .replace(R.id.container, UserRegisterFragment.newInstance())
                     .addToBackStack(null)
                     .commit()
             }
