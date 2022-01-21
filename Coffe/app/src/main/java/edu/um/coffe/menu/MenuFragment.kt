@@ -17,7 +17,8 @@ import edu.um.coffe.login.UserLoginViewModel
 
 class MenuFragment : Fragment() {
 
-    private lateinit var viewModel : MenuViewModel
+    lateinit var viewModel : MenuViewModel
+
     var cafes : List<Cafe> = ArrayList<Cafe>()
     companion object{
         fun newInstance() = MenuFragment()
@@ -29,17 +30,17 @@ class MenuFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.menu_fragment,container,false)
         viewModel = ViewModelProvider(this)[MenuViewModel::class.java]
-        viewModel.getCafes()
+        //viewModel.getCafes()
         cafes = mutableListOf(
             Cafe("1234","Garrafeira",5F,"Rua das finanças",Contacto("253222543","garrafeira@cafe.com"),"naoseicomo")
         )
-        val adapter = cafes.let { CafeAdapter(it) }
+        val adapter = cafes.let { CafeAdapter(it,viewModel) }
         val rvCafes = view.findViewById<RecyclerView>(R.id.rvcafes)
         rvCafes.adapter = adapter
         rvCafes.layoutManager = LinearLayoutManager(this.context)
 
         view.findViewById<EditText>(R.id.lSearch_bar).addTextChangedListener {
-            rvCafes.adapter = CafeAdapter(cafes)
+            rvCafes.adapter = CafeAdapter(cafes,viewModel)
         }
         return view
     }

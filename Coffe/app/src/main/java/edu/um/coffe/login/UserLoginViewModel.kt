@@ -31,4 +31,5 @@ class UserLoginViewModel: ViewModel() {
             return@runBlocking logado
         }
     }
+
 }
