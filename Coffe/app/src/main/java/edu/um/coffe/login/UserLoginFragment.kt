@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import edu.um.coffe.R
 import edu.um.coffe.menu.MenuFragment
+import edu.um.coffe.menu.SwipableMenu
 import edu.um.coffe.register.UserRegisterFragment
 
 class UserLoginFragment : Fragment() {
@@ -42,8 +43,7 @@ class UserLoginFragment : Fragment() {
             val b = userLoginViewModel.autenticarUtilizador()
             if (b) {
                 Toast.makeText(context,"LOGADO",Toast.LENGTH_LONG).show()
-                fragmentManager?.popBackStack()
-                fragmentManager?.beginTransaction()?.add(R.id.container, MenuFragment.newInstance())
+                fragmentManager?.beginTransaction()?.replace(R.id.container, SwipableMenu.getInstance())
                     ?.addToBackStack(null)?.commit()
             }
             else {

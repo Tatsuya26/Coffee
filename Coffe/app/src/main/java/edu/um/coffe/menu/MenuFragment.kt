@@ -1,10 +1,10 @@
 package edu.um.coffe.menu
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.EditText
+import android.widget.Toast
+import androidx.core.view.GestureDetectorCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -32,7 +32,8 @@ class MenuFragment : Fragment() {
         viewModel = ViewModelProvider(this)[MenuViewModel::class.java]
         //viewModel.getCafes()
         cafes = mutableListOf(
-            Cafe("1234","Garrafeira",5F,"Rua das finanças",Contacto("253222543","garrafeira@cafe.com"),"naoseicomo")
+            Cafe("1234","Garrafeira",5F,"Rua das finanças",Contacto("253222543","garrafeira@cafe.com"),"naoseicomo"),
+            Cafe("556","Ray coffee",5F,"Rua do Ray",Contacto("21231213","69@gmail.com"), "nonono")
         )
         val adapter = cafes.let { CafeAdapter(it,viewModel) }
         val rvCafes = view.findViewById<RecyclerView>(R.id.rvcafes)
@@ -42,6 +43,7 @@ class MenuFragment : Fragment() {
         view.findViewById<EditText>(R.id.lSearch_bar).addTextChangedListener {
             rvCafes.adapter = CafeAdapter(cafes,viewModel)
         }
+
         return view
     }
 
