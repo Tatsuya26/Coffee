@@ -12,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import edu.um.coffe.R
+import edu.um.coffe.menu.MenuFragment
 import edu.um.coffe.register.UserRegisterFragment
 
 class UserLoginFragment : Fragment() {
@@ -42,7 +43,7 @@ class UserLoginFragment : Fragment() {
             if (b) {
                 Toast.makeText(context,"LOGADO",Toast.LENGTH_LONG).show()
                 fragmentManager?.popBackStack()
-                fragmentManager?.beginTransaction()?.add(R.id.container, UserRegisterFragment.newInstance())
+                fragmentManager?.beginTransaction()?.add(R.id.container, MenuFragment.newInstance())
                     ?.addToBackStack(null)?.commit()
             }
             else {

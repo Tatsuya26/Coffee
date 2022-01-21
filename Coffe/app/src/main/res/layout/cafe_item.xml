@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cafecontainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:minHeight="100dp"
+    android:padding="10dp"
+    >
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/headerCafe"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/roundededgesbox"
+    android:backgroundTint="#683001"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/cafeMoreInfo"
+    >
+    <ImageView
+        android:id="@+id/imagemCafe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Imagem de um cafe"
+        android:minWidth="100dp"
+        android:minHeight="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nomeCafe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#43C65A03"
+        android:fontFamily="@font/aclonica"
+        android:gravity="center"
+        android:minWidth="100dp"
+        android:minHeight="100dp"
+        android:text="Cafe Garrafeira"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toStartOf="@+id/classificacaoCafe"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imagemCafe"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/classificacaoCafe"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minWidth="100dp"
+        android:minHeight="100dp"
+        android:text="4.5*"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cafeMoreInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerCafe">
+
+        <TextView
+            android:id="@+id/telefoneCafe"
+            android:layout_width="wrap_content"
+            android:gravity=""
+            android:layout_height="wrap_content"
+            android:text="Telefone : 919275976"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/emailCafe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: LI4@GMAIL.COM"
+            android:textSize="25sp"
+            app:layout_constraintTop_toBottomOf="@id/telefoneCafe"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/moradaCafe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Morada = Gualtar"
+            android:textSize="25sp"
+            app:layout_constraintTop_toBottomOf="@id/emailCafe"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

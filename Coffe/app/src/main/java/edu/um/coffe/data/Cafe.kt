@@ -13,5 +13,8 @@ data class Cafe (
     val endereco : String,
     @Embedded val contacto: Contacto,
     val fotos : String
-
     )
+{
+    @Transient
+    var visibilidade : Boolean = false
+}

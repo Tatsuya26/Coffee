@@ -7,35 +7,35 @@ import androidx.room.*
 interface AppDao {
 
     @Insert (onConflict = OnConflictStrategy.IGNORE)
-    fun addCafe(cafe : Cafe)
+    suspend fun addCafe(cafe : Cafe)
 
     @Insert (onConflict = OnConflictStrategy.REPLACE)
-    fun addHorario(horario : Horario)
+    suspend fun addHorario(horario : Horario)
 
     @Insert (onConflict = OnConflictStrategy.IGNORE)
     suspend fun addUser(user : User)
 
     @Insert (onConflict = OnConflictStrategy.IGNORE)
-    fun addFavoriteCafe(fav : Favoritos)
+    suspend fun addFavoriteCafe(fav : Favoritos)
 
     @Insert (onConflict = OnConflictStrategy.IGNORE)
-    fun addHistoricoCafe(hist: Historico)
+    suspend fun addHistoricoCafe(hist: Historico)
 
     @Query("Select * from User where username = :username")
     suspend fun getUser(username: String) : User
 
     @Query("Select * from User")
-    fun getUsers() : List<User>
+    suspend fun getUsers() : List<User>
 
     @Query("Select * from Cafe")
-    fun getCafes() : List<Cafe>
+    suspend fun getCafes() : List<Cafe>
 
     @Transaction
     @Query("Select * from Favoritos where username = :username")
-    fun getFavoriteCafesFromUser(username : String) : List<Favoritos>
+    suspend fun getFavoriteCafesFromUser(username : String) : List<Favoritos>
 
     @Transaction
     @Query("Select * from Historico where username = :username")
-    fun getHistoricoFromUser(username: String) : List<Historico>
+    suspend fun getHistoricoFromUser(username: String) : List<Historico>
 
 }

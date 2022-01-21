@@ -20,11 +20,15 @@ class Model (private val appDao: AppDao) {
     }
 
     suspend fun autenticarUtilizador(username: String,password: String) : Boolean {
-        val u: User = appDao.getUser(username)
+        val u: User? = appDao.getUser(username)
         if (u == null || u.password.compareTo(password) != 0) {
             return false
         }
         user = u
         return true
+    }
+
+    suspend fun getCafes(): List<Cafe> {
+        return appDao.getCafes()
     }
 }

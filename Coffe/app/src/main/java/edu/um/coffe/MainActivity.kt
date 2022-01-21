@@ -1,6 +1,7 @@
 package edu.um.coffe
 
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import edu.um.coffe.data.CoffeeDatabase
 import edu.um.coffe.login.LoginFragment
