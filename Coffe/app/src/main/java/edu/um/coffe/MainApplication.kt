@@ -1,7 +1,6 @@
 package edu.um.coffe
 
 import android.app.Application
-import android.content.Context
 import edu.um.coffe.data.Cafe
 import edu.um.coffe.data.CoffeeDatabase
 import edu.um.coffe.data.Contacto
@@ -23,8 +22,10 @@ class MainApplication :Application() {
             repository.insertCafe(Cafe(
                         "1234", "Garrafeira", 5F, Localizacao("Rua das finanças",  41.65433066576365, -8.43504224690325),
                         Contacto("253222543", "garrafeira@cafe.com"), "naoseicomo"
-                    )
-                    )
+                    ))
+            repository.insertCafe(
+                Cafe("1235","Tropical",4F,Localizacao("Rua das finanças",  41.65433066576365, -8.43504224690325),
+                    Contacto("253222544","tropical@cafe.com"),"naoseicomo"))
         }
     }
 }

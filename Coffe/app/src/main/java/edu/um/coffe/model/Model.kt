@@ -1,16 +1,15 @@
 package edu.um.coffe.model
 
-import android.content.Context
-import androidx.lifecycle.LifecycleCoroutineScope
 import edu.um.coffe.data.*
 import edu.um.coffe.data.Cafe
 import edu.um.coffe.data.User
-import kotlinx.coroutines.launch
 
 class Model (private val appDao: AppDao) {
 
     var user : User? = null
     private var cafes: List<Cafe> = appDao.getCafes();
+    lateinit var favUser : MutableList<Cafe>
+    lateinit var histUser : MutableList<Cafe>
 
 
     suspend fun insertCafe(cafe : Cafe) {
@@ -27,6 +26,8 @@ class Model (private val appDao: AppDao) {
             return false
         }
         user = u
+        favUser = getFavoritos()
+        histUser = getHistorico()
         return true
     }
 
@@ -53,5 +54,37 @@ class Model (private val appDao: AppDao) {
 
     fun getCafes(): List<Cafe> {
         return appDao.getCafes()
+    }
+
+    suspend fun addToHistorico(idCafe: String) {
+        if(idCafeExiste(idCafe)) {
+            var hist : Historico = Historico(idCafe,user!!.username)
+            appDao.addHistoricoCafe(hist)
+        }
+    }
+
+    suspend fun getFavoritos() : MutableList<Cafe> {
+        var favs : List<Favoritos> = appDao.getFavoriteCafesFromUser(user!!.username)
+        var cafesFav = mutableListOf<Cafe>()
+        for (fav in favs) {
+            var c :Cafe = appDao.getCafe(fav.idCafe)
+            cafesFav.add(c)
+        }
+        return cafesFav
+    }
+
+    suspend fun getHistorico() : MutableList<Cafe> {
+        var hist : List<Historico> = appDao.getHistoricoFromUser(user!!.username)
+        var cafesFav = mutableListOf<Cafe>()
+        for (fav in hist) {
+            var c :Cafe = appDao.getCafe(fav.idCafe)
+            cafesFav.add(c)
+        }
+        return cafesFav
+    }
+
+    suspend fun removeFavorito(idCafe: String) {
+        var fav = Favoritos(idCafe,user!!.username)
+        appDao.removeFavorito(fav)
     }
 }

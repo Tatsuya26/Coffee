@@ -24,6 +24,9 @@ interface AppDao {
     @Query("Select * from User where username = :username")
     suspend fun getUser(username: String) : User
 
+    @Query("Select * from Cafe where idCafe =:idCafe")
+    suspend fun getCafe(idCafe: String): Cafe
+
     @Query("Select * from User")
     suspend fun getUsers() : List<User>
 
@@ -37,5 +40,8 @@ interface AppDao {
     @Transaction
     @Query("Select * from Historico where username = :username")
     suspend fun getHistoricoFromUser(username: String) : List<Historico>
+
+    @Delete
+    suspend fun removeFavorito(fav: Favoritos)
 
 }

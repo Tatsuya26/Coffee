@@ -14,8 +14,9 @@ import edu.um.coffe.data.Cafe
 import edu.um.coffe.data.Contacto
 import edu.um.coffe.data.Localizacao
 
-class HistoricoFragment : Fragment() {
+class HistoricoFragment() : Fragment() {
     lateinit var viewModel : MenuViewModel
+    lateinit var histCafe : MutableList<Cafe>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,15 +25,11 @@ class HistoricoFragment : Fragment() {
     ): View? {
         viewModel = ViewModelProvider(this)[MenuViewModel::class.java]
         val view = inflater.inflate(R.layout.lista_cafesview,container,false)
-        var cafes = mutableListOf(
-            Cafe(
-                "1234", "Garrafeira", 5F, Localizacao("Rua das finanças",  41.65433066576365, -8.43504224690325),
-                Contacto("253222543", "garrafeira@cafe.com"), "naoseicomo"
-            )
-        )
+        viewModel.getHistorico()
+        histCafe = viewModel.histUser
 
         val rvFavs = view.findViewById<RecyclerView>(R.id.rvlistas)
-        var adapter = CafeAdapter(cafes, viewModel)
+        val adapter = CafeAdapter(histCafe, viewModel)
         rvFavs.adapter = adapter
         rvFavs.layoutManager = LinearLayoutManager(this.context)
 

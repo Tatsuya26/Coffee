@@ -1,26 +1,27 @@
 package edu.um.coffe.menu
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.*
 import android.widget.EditText
-import android.widget.Toast
-import androidx.core.view.GestureDetectorCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.um.coffe.R
+import edu.um.coffe.R.layout.menu_fragment
 import edu.um.coffe.data.Cafe
-import edu.um.coffe.data.Contacto
-import edu.um.coffe.data.Localizacao
-import edu.um.coffe.login.UserLoginViewModel
 
-class MenuFragment : Fragment() {
+class MenuFragment (): Fragment(menu_fragment) {
+    private lateinit var viewModel : MenuViewModel
+    private lateinit var adapter: CafeAdapter
+    private lateinit var text: EditText
 
-    lateinit var viewModel : MenuViewModel
+    var cafes : List<Cafe> = mutableListOf()
 
-    var cafes : List<Cafe> = ArrayList<Cafe>()
     companion object{
         fun newInstance() = MenuFragment()
     }
@@ -29,25 +30,45 @@ class MenuFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.menu_fragment,container,false)
+        val view = inflater.inflate(menu_fragment,container,false)
         viewModel = ViewModelProvider(this)[MenuViewModel::class.java]
-        //viewModel.getCafes()
-        cafes = mutableListOf(
-            Cafe(
-                "1234", "Garrafeira", 5F, Localizacao("Rua das finanças",  41.65433066576365, -8.43504224690325),
-                Contacto("253222543", "garrafeira@cafe.com"), "naoseicomo"
-            ),
-            Cafe("556","Ray coffee",5F,Localizacao("Rua do ray",  41.65433066576365, -8.43504224690325),Contacto("21231213","69@gmail.com"), "nonono")
-        )
-        val adapter = cafes.let { CafeAdapter(it,viewModel) }
-        val rvCafes = view.findViewById<RecyclerView>(R.id.rvcafes)
+
+        text = view.findViewById(R.id.lSearch_bar)
+        viewModel.getCafes()
+        this.cafes = viewModel.cafes
+        adapter = CafeAdapter(cafes,viewModel)
+        val rvCafes: RecyclerView = view.findViewById<RecyclerView>(R.id.rvcafes)
         rvCafes.adapter = adapter
         rvCafes.layoutManager = LinearLayoutManager(this.context)
 
-        view.findViewById<EditText>(R.id.lSearch_bar).addTextChangedListener {
-            rvCafes.adapter = CafeAdapter(cafes,viewModel)
-        }
+        text.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
 
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                var input = s.toString()
+                var filteredList : MutableList<Cafe> = mutableListOf()
+
+                for (cafe in cafes) {
+                    if (cafe.nome.toLowerCase().contains(input.toLowerCase())) {
+                        Log.d("MY FUCKING TAG", cafe.nome)
+                        Log.d("MY FUCKING TAG", input.toString())
+                        filteredList.add(cafe)
+                    }
+                }
+
+                Log.d("MY FUCKING TAG", "SIZE: " + cafes.size.toString())
+                Log.d("MY FUCKING TAG", "FILTER SIZE: " + filteredList.size.toString())
+
+                adapter.filter(filteredList)
+            }
+
+        })
+
+        setHasOptionsMenu(true)
         return view
     }
 
@@ -56,3 +77,4 @@ class MenuFragment : Fragment() {
         super.onDestroyView()
     }
 }
+

@@ -14,9 +14,9 @@ import edu.um.coffe.data.Cafe
 import edu.um.coffe.data.Contacto
 import edu.um.coffe.data.Localizacao
 
-class FavoritosFragment : Fragment() {
+class FavoritosFragment(): Fragment() {
+    lateinit var favCafes : MutableList<Cafe>
     lateinit var viewModel : MenuViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,15 +24,11 @@ class FavoritosFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.lista_cafesview,container,false)
         viewModel = ViewModelProvider(this)[MenuViewModel::class.java]
-        var cafes = mutableListOf(
-            Cafe(
-                "1234", "Garrafeira", 5F, Localizacao("Rua das finanças",  41.65433066576365, -8.43504224690325),
-                Contacto("253222543", "garrafeira@cafe.com"), "naoseicomo"
-            )
-        )
+        viewModel.getFavourites()
+        favCafes = viewModel.favUser
 
         val rvFavs = view.findViewById<RecyclerView>(R.id.rvlistas)
-        var adapter = CafeAdapter(cafes,viewModel)
+        var adapter = FavAdapter(favCafes,viewModel)
         rvFavs.adapter = adapter
         rvFavs.layoutManager = LinearLayoutManager(this.context)
 

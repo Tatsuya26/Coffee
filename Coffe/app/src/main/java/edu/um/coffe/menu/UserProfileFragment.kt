@@ -49,4 +49,17 @@ class UserProfileFragment : Fragment() {
 
         return view
     }
+
+    override fun onResume() {
+        viewModel = ViewModelProvider(this)[UserProfileViewModel::class.java]
+        val adapter = CafeSlidePagerAdapter(this)
+        viewpager.adapter = adapter
+
+        TabLayoutMediator(tabLayout,viewpager) { tab,position ->
+            if (position == 0) tab.text = "Favoritos"
+            else tab.text = "Historico"
+        }.attach()
+
+        super.onResume()
+    }
 }
