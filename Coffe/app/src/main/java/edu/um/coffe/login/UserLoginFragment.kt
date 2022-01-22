@@ -47,7 +47,7 @@ class UserLoginFragment : Fragment() {
                     ?.commit()
             }
             else {
-                Toast.makeText(context,"Utilizador nao existente",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,"Utilizador não existente",Toast.LENGTH_SHORT).show()
                 view.findViewById<EditText>(R.id.lPasswordBox).setText("")
                 view.findViewById<EditText>(R.id.lusernameBox).setText("")
             }

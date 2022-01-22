@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import edu.um.coffe.R
+import edu.um.coffe.menu.SwipableMenu
 
 class UserRegisterFragment : Fragment() {
     companion object {
@@ -43,8 +44,17 @@ class UserRegisterFragment : Fragment() {
         }
 
         registerBtn.setOnClickListener {
-            registerViewModel.run { registarUtilizador() }
+            registerViewModel.run {
+                registarUtilizador()
+                autenticarUtilizador()
+            }
             fragmentManager?.popBackStack()
+            requireActivity().supportFragmentManager?.apply {
+                beginTransaction()
+                    .replace(R.id.container, SwipableMenu.getInstance())
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
         return view
     }
