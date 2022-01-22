@@ -5,14 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
+import edu.um.coffe.MainActivity
 import edu.um.coffe.R
 import edu.um.coffe.data.Cafe
-import org.w3c.dom.Text
+import edu.um.coffe.mapa.MapsFragment
 
-class CafeAdapter (var cafes : List<Cafe>) : RecyclerView.Adapter<CafeAdapter.CafeViewHolder>() {
-
+class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : RecyclerView.Adapter<CafeAdapter.CafeViewHolder>() {
+    lateinit var fav_button: AppCompatImageButton
     inner class CafeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CafeViewHolder {
@@ -22,12 +26,17 @@ class CafeAdapter (var cafes : List<Cafe>) : RecyclerView.Adapter<CafeAdapter.Ca
 
     override fun onBindViewHolder(holder: CafeViewHolder, position: Int) {
         holder.itemView.apply {
+            fav_button = findViewById(R.id.favorito)
+            fav_button.setOnClickListener {
+                viewModel.adicionarFavorito(cafes[position].idCafe)
+                Toast.makeText(this.context,"Adicionar favoritos",Toast.LENGTH_LONG).show()
+            }
             findViewById<TextView>(R.id.nomeCafe).text = cafes[position].nome
             findViewById<TextView>(R.id.classificacaoCafe).text = cafes[position].rating.toString()
             findViewById<ImageView>(R.id.imagemCafe).setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_home_24))
             findViewById<TextView>(R.id.telefoneCafe).text = cafes[position].contacto.telefone
             findViewById<TextView>(R.id.emailCafe).text = cafes[position].contacto.email
-            findViewById<TextView>(R.id.moradaCafe).text = cafes[position].endereco
+            findViewById<TextView>(R.id.moradaCafe).text = cafes[position].localizacao.endereco
 
             val visivel = cafes[position].visibilidade
             findViewById<ConstraintLayout>(R.id.cafeMoreInfo).visibility = if (visivel) View.VISIBLE else View.GONE
@@ -36,6 +45,18 @@ class CafeAdapter (var cafes : List<Cafe>) : RecyclerView.Adapter<CafeAdapter.Ca
                 cafes[position].visibilidade = !cafes[position].visibilidade
                 notifyItemChanged(position)
             }
+
+            findViewById<MaterialButton>(R.id.buttonformap).setOnClickListener {
+                val activity = this.context as MainActivity
+                val commit = activity.supportFragmentManager?.beginTransaction()?.replace(
+                    R.id.container,
+                    MapsFragment.getInstance(
+                        cafes[position].localizacao.latitude,
+                        cafes[position].localizacao.longitude
+                    )
+                )?.addToBackStack(null)?.commit()
+            }
+
         }
     }
 

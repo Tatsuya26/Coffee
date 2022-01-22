@@ -10,7 +10,8 @@ data class Cafe (
     val idCafe : String,
     val nome : String,
     val rating : Float,
-    val endereco : String,
+    @Embedded
+    val localizacao: Localizacao,
     @Embedded val contacto: Contacto,
     val fotos : String
     )
@@ -18,3 +19,9 @@ data class Cafe (
     @Transient
     var visibilidade : Boolean = false
 }
+
+data class Localizacao (
+    val endereco: String,
+    val latitude : Double,
+    val longitude : Double
+        )

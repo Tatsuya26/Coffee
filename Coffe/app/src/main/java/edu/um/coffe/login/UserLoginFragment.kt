@@ -44,7 +44,7 @@ class UserLoginFragment : Fragment() {
             if (b) {
                 Toast.makeText(context,"LOGADO",Toast.LENGTH_LONG).show()
                 fragmentManager?.beginTransaction()?.replace(R.id.container, SwipableMenu.getInstance())
-                    ?.addToBackStack(null)?.commit()
+                    ?.commit()
             }
             else {
                 Toast.makeText(context,"Utilizador nao existente",Toast.LENGTH_SHORT).show()
