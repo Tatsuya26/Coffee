@@ -1,12 +1,14 @@
 package edu.um.coffe.model
 
+import edu.um.coffe.data.AppDao
+
 class GestCafes {
     //private var bd: DataBaseAccess
-    private var cafes: MutableList<Cafe>
+    private var cafes: List<Cafe>
     private var currentUser: User
 
     init {
-        cafes = mutableListOf()
+        cafes = listOf()
         currentUser = User()    //empty constructor
     }
 

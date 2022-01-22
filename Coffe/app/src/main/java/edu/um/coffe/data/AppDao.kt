@@ -28,7 +28,7 @@ interface AppDao {
     suspend fun getUsers() : List<User>
 
     @Query("Select * from Cafe")
-    suspend fun getCafes() : List<Cafe>
+    fun getCafes() : List<Cafe>
 
     @Transaction
     @Query("Select * from Favoritos where username = :username")

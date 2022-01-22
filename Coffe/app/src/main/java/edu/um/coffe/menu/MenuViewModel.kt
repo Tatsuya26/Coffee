@@ -14,6 +14,12 @@ class MenuViewModel : ViewModel() {
     var cafes : MutableList<Cafe> = mutableListOf<Cafe>()
 
 
+
+    fun adicionarFavorito(cafeid: String) {
+        viewModelScope.launch {
+            model.addToFavoritos(cafeid)
+        }
+    }
     fun getCafes() {
         runBlocking {
             //cafes = model.getCafes();

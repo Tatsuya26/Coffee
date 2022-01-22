@@ -4,16 +4,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import edu.um.coffe.R
 import edu.um.coffe.data.Cafe
 
-class CafeAdapter (var cafes : MutableList<Cafe>) : RecyclerView.Adapter<CafeAdapter.CafeViewHolder>() {
+class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : RecyclerView.Adapter<CafeAdapter.CafeViewHolder>() {
+    lateinit var fav_button: AppCompatImageButton
     inner class CafeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CafeViewHolder {
@@ -23,6 +23,10 @@ class CafeAdapter (var cafes : MutableList<Cafe>) : RecyclerView.Adapter<CafeAda
 
     override fun onBindViewHolder(holder: CafeViewHolder, position: Int) {
         holder.itemView.apply {
+            fav_button = findViewById(R.id.favorito)
+            fav_button.setOnClickListener {
+                viewModel.adicionarFavorito(cafes[position].idCafe)
+            }
             findViewById<TextView>(R.id.nomeCafe).text = cafes[position].nome
             findViewById<TextView>(R.id.classificacaoCafe).text = cafes[position].rating.toString()
             findViewById<ImageView>(R.id.imagemCafe).setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_home_24))
@@ -46,7 +50,6 @@ class CafeAdapter (var cafes : MutableList<Cafe>) : RecyclerView.Adapter<CafeAda
 
     fun filter(filteredList: MutableList<Cafe>){
         cafes = filteredList
-        Log.d("WHAT THE FUCK?", "IS THIS REAL LIFE?")
         notifyDataSetChanged()
     }
 }
