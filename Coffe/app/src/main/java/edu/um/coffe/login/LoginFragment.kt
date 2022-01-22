@@ -40,7 +40,6 @@ class LoginFragment : Fragment() {
             fragmentManager?.apply {
                 beginTransaction()
                     .replace(R.id.container, UserLoginFragment.newInstance())
-                    .addToBackStack(null)
                     .commit()
             }
         }
@@ -50,7 +49,6 @@ class LoginFragment : Fragment() {
             fragmentManager?.apply {
                 beginTransaction()
                     .replace(R.id.container, UserRegisterFragment.newInstance())
-                    .addToBackStack(null)
                     .commit()
             }
         }
@@ -59,7 +57,6 @@ class LoginFragment : Fragment() {
             fragmentManager?.apply {
                 beginTransaction()
                     .replace(R.id.container, SwipableMenu.getInstance())
-                    .addToBackStack(null)
                     .commit()
             }
         }

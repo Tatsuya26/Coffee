@@ -88,4 +88,8 @@ class Model (private val appDao: AppDao) {
         var fav = Favoritos(idCafe,user!!.username)
         appDao.removeFavorito(fav)
     }
+
+    fun logout() {
+        user = null
+    }
 }

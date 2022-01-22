@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#CCC8C8">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#CCC8C8"
+    tools:context=".menu.SwipableMenu">
 
     <me.relex.circleindicator.CircleIndicator3
         android:id="@+id/indicatorPage"

@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import edu.um.coffe.R
+import edu.um.coffe.login.LoginFragment
 
 class UserRegisterFragment : Fragment() {
     companion object {
@@ -44,7 +45,12 @@ class UserRegisterFragment : Fragment() {
 
         registerBtn.setOnClickListener {
             registerViewModel.run { registarUtilizador() }
-            fragmentManager?.popBackStack()
+            fragmentManager?.beginTransaction()?.replace(R.id.container,LoginFragment.newInstance())
+        }
+
+        view.findViewById<ImageButton>(R.id.signupBack).setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.container, LoginFragment.newInstance())
+                ?.commit()
         }
         return view
     }

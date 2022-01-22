@@ -37,7 +37,6 @@ class SwipableMenu : Fragment() {
         viewpager = view.findViewById(R.id.pagerslide)
         val adapter = ScreenSlidePagerAdapter(this)
         viewpager.adapter = adapter
-
         val indicator = view.findViewById<CircleIndicator3>(R.id.indicatorPage)
         indicator.setViewPager(viewpager)
         return view

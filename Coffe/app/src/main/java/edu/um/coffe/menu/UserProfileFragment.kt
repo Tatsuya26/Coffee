@@ -5,13 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import edu.um.coffe.R
+import edu.um.coffe.login.LoginFragment
+import edu.um.coffe.login.UserLoginFragment
 
 class UserProfileFragment : Fragment() {
 
@@ -36,6 +40,7 @@ class UserProfileFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.user_profile,container,false)
         viewModel = ViewModelProvider(this)[MenuViewModel::class.java]
+
         val nomeUser = view.findViewById<TextView>(R.id.usernameProfile)
         nomeUser.text = viewModel.getUsername()
         viewpager = view.findViewById(R.id.viewpageuser)

@@ -57,4 +57,9 @@ class MenuViewModel : ViewModel() {
             "USER"
         } else user!!.username
     }
+
+    fun logout() {
+        model.logout()
+        user = null
+    }
 }

@@ -53,6 +53,12 @@ class UserLoginFragment : Fragment() {
             }
         }
 
+        view.findViewById<ImageButton>(R.id.loginBack).setOnClickListener {
+                fragmentManager?.beginTransaction()?.replace(R.id.container, LoginFragment.newInstance())
+                    ?.commit()
+        }
+
+
         return view
     }
 
