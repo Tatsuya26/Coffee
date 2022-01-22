@@ -42,6 +42,4 @@ class SwipableMenu : Fragment() {
         indicator.setViewPager(viewpager)
         return view
     }
-
-
 }

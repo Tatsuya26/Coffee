@@ -53,18 +53,12 @@ class MenuFragment (): Fragment(menu_fragment) {
 
                 for (cafe in cafes) {
                     if (cafe.nome.toLowerCase().contains(input.toLowerCase())) {
-                        Log.d("MY FUCKING TAG", cafe.nome)
-                        Log.d("MY FUCKING TAG", input.toString())
                         filteredList.add(cafe)
                     }
                 }
 
-                Log.d("MY FUCKING TAG", "SIZE: " + cafes.size.toString())
-                Log.d("MY FUCKING TAG", "FILTER SIZE: " + filteredList.size.toString())
-
                 adapter.filter(filteredList)
             }
-
         })
 
         setHasOptionsMenu(true)
