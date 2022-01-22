@@ -15,8 +15,18 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import edu.um.coffe.R
+
 import androidx.core.app.ActivityCompat.startActivityForResult
 
+
+
+import android.util.Log
+import android.widget.EditText
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.button.MaterialButton
+import edu.um.coffe.data.User
+import edu.um.coffe.login.LoginFragment
+import edu.um.coffe.login.UserLoginFragment
 
 
 
@@ -28,6 +38,13 @@ class UserProfileFragment : Fragment() {
     private lateinit var changePic: ImageButton
     private lateinit var userImage: ImageView
 
+
+    companion object{
+        fun newInstance() = UserProfileFragment()
+        val IMAGE_REQUEST_CODE = 100
+    }
+
+
     inner class CafeSlidePagerAdapter(fa : Fragment) : FragmentStateAdapter(fa){
         override fun getItemCount(): Int {
             return 2
@@ -38,10 +55,7 @@ class UserProfileFragment : Fragment() {
             else return HistoricoFragment()
         }
     }
-
-        companion object {
-            val IMAGE_REQUEST_CODE = 100
-        }
+    
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,6 +84,16 @@ class UserProfileFragment : Fragment() {
             if (position == 0) tab.text = "Favoritos"
             else tab.text = "Historico"
         }.attach()
+
+        var changePassword = view.findViewById<MaterialButton>(R.id.mudarpass)
+        changePassword.setOnClickListener {
+            requireActivity().supportFragmentManager.apply {
+                    beginTransaction()
+                        .replace(R.id.container, ChangePasswordFragment.newInstance())
+                        .addToBackStack(null)
+                        .commit()
+            }
+        }
 
         return view
     }
