@@ -1,11 +1,8 @@
 package edu.um.coffe
 
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import edu.um.coffe.data.CoffeeDatabase
 import edu.um.coffe.login.LoginFragment
-import edu.um.coffe.model.Model
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,8 +14,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, LoginFragment.newInstance())
                 .commitNow()
         }
-
     }
 
-
-    }
+}

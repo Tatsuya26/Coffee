@@ -1,7 +1,6 @@
 package edu.um.coffe
 
 import android.app.Application
-import android.content.Context
 import edu.um.coffe.data.CoffeeDatabase
 import edu.um.coffe.model.Model
 
