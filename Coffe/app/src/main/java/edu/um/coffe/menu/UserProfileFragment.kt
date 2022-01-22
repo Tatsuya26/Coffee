@@ -1,9 +1,12 @@
 package edu.um.coffe.menu
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,12 +15,19 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import edu.um.coffe.R
+import androidx.core.app.ActivityCompat.startActivityForResult
+
+
+
 
 class UserProfileFragment : Fragment() {
 
     private lateinit var viewModel : MenuViewModel
     private lateinit var viewpager : ViewPager2
     private lateinit var tabLayout : TabLayout
+    private lateinit var changePic: ImageButton
+    private lateinit var userImage: ImageView
+
     inner class CafeSlidePagerAdapter(fa : Fragment) : FragmentStateAdapter(fa){
         override fun getItemCount(): Int {
             return 2
@@ -29,12 +39,25 @@ class UserProfileFragment : Fragment() {
         }
     }
 
+        companion object {
+            val IMAGE_REQUEST_CODE = 100
+        }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.user_profile,container,false)
+        changePic = view.findViewById(R.id.change_image)
+        userImage = view.findViewById(R.id.avataruser)
+        changePic.bringToFront()
+
+        changePic.setOnClickListener{
+            pickImageGallery()
+        }
+
+
         viewModel = ViewModelProvider(this)[MenuViewModel::class.java]
         val nomeUser = view.findViewById<TextView>(R.id.usernameProfile)
         nomeUser.text = viewModel.getUsername()
@@ -62,5 +85,20 @@ class UserProfileFragment : Fragment() {
         }.attach()
 
         super.onResume()
+    }
+
+    private fun pickImageGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), IMAGE_REQUEST_CODE)
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == IMAGE_REQUEST_CODE) {
+            userImage.setImageURI(data?.data)
+        }
     }
 }
