@@ -4,17 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.um.coffe.MainApplication
 import edu.um.coffe.data.Cafe
-import edu.um.coffe.data.Contacto
-import edu.um.coffe.data.Localizacao
-import kotlinx.coroutines.flow.MutableStateFlow
+import edu.um.coffe.data.User
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MenuViewModel : ViewModel() {
     private val model = MainApplication.repository
     var cafes : List<Cafe> = mutableListOf<Cafe>()
-    lateinit var favUser : MutableList<Cafe>
-    lateinit var histUser : MutableList<Cafe>
+    var favUser : MutableList<Cafe> = mutableListOf<Cafe>()
+    var histUser : MutableList<Cafe> = mutableListOf<Cafe>()
+    var user : User? = model.user
 
 
 
@@ -51,5 +50,11 @@ class MenuViewModel : ViewModel() {
         viewModelScope.launch {
             model.removeFavorito(idCafe)
         }
+    }
+
+    fun getUsername(): String {
+        return if (user == null) {
+            "USER"
+        } else user!!.username
     }
 }

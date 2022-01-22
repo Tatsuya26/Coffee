@@ -32,13 +32,12 @@ class Model (private val appDao: AppDao) {
     }
 
     suspend fun addToFavoritos(idCafe: String): Boolean{
-        if(idCafeExiste(idCafe)) {
+        return if(idCafeExiste(idCafe) && user != null) {
             var fav : Favoritos = Favoritos(idCafe,user!!.username)
             appDao.addFavoriteCafe(fav)
-            return true
-        }
-        else
-            return false
+            true
+        } else
+            false
     }
 
     private fun idCafeExiste(idCafe: String): Boolean{
@@ -57,13 +56,14 @@ class Model (private val appDao: AppDao) {
     }
 
     suspend fun addToHistorico(idCafe: String) {
-        if(idCafeExiste(idCafe)) {
+        if(idCafeExiste(idCafe) && user != null) {
             var hist : Historico = Historico(idCafe,user!!.username)
             appDao.addHistoricoCafe(hist)
         }
     }
 
     suspend fun getFavoritos() : MutableList<Cafe> {
+        if (user == null) return mutableListOf()
         var favs : List<Favoritos> = appDao.getFavoriteCafesFromUser(user!!.username)
         var cafesFav = mutableListOf<Cafe>()
         for (fav in favs) {
@@ -74,6 +74,7 @@ class Model (private val appDao: AppDao) {
     }
 
     suspend fun getHistorico() : MutableList<Cafe> {
+        if (user == null) return mutableListOf()
         var hist : List<Historico> = appDao.getHistoricoFromUser(user!!.username)
         var cafesFav = mutableListOf<Cafe>()
         for (fav in hist) {

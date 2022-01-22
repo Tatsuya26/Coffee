@@ -13,7 +13,7 @@
         android:id="@+id/autenticacao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100sp"
+        android:layout_marginTop="50sp"
         android:fontFamily="@font/marko_one"
         android:gravity="center"
         android:text="@string/auth"
@@ -30,10 +30,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/autenticacao"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
         android:backgroundTint="@android:color/transparent"
         android:text="LOGIN"
-        android:textSize="60dp"
+        android:textSize="60sp"
         android:textStyle="bold"
         app:cornerRadius="8dp"
         app:rippleColor="#33AAAAAA"
@@ -49,7 +49,7 @@
         android:layout_marginTop="10dp"
         android:text="Não tem conta?"
         android:textColor="@android:color/white"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/cliqueaqui"
@@ -62,10 +62,24 @@
         android:layout_marginBottom="10dp"
         android:layout_toRightOf="@+id/texto1"
         android:clickable="true"
+        android:minHeight="48dp"
         android:singleLine="false"
         android:text="@string/registar"
         android:textColor="@android:color/holo_orange_light"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/skipbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cliqueaqui"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:background="@android:color/transparent"
+        android:text="SKIP"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
 
 
 </RelativeLayout>

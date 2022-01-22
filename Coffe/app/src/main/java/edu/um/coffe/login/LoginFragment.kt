@@ -8,7 +8,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.*
 import androidx.lifecycle.MutableLiveData
+import com.google.android.material.button.MaterialButton
 import edu.um.coffe.R
+import edu.um.coffe.menu.SwipableMenu
 import edu.um.coffe.register.UserRegisterFragment
 
 class LoginFragment : Fragment() {
@@ -32,6 +34,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loginbtn = view.findViewById(R.id.entrar)
         registText = view.findViewById(R.id.cliqueaqui)
+        var skipbtn = view.findViewById<MaterialButton>(R.id.skipbtn)
 
         loginbtn.setOnClickListener {
             fragmentManager?.apply {
@@ -42,10 +45,20 @@ class LoginFragment : Fragment() {
             }
         }
 
+
         registText.setOnClickListener {
             fragmentManager?.apply {
                 beginTransaction()
                     .replace(R.id.container, UserRegisterFragment.newInstance())
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
+
+        skipbtn.setOnClickListener {
+            fragmentManager?.apply {
+                beginTransaction()
+                    .replace(R.id.container, SwipableMenu.getInstance())
                     .addToBackStack(null)
                     .commit()
             }
