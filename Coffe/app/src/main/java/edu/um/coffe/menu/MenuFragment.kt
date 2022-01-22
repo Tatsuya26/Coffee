@@ -35,12 +35,11 @@ class MenuFragment (): Fragment(menu_fragment) {
 
         text = view.findViewById(R.id.lSearch_bar)
         viewModel.getCafes()
-        this.cafes = viewModel.cafes
+        cafes = viewModel.cafes
         adapter = CafeAdapter(cafes,viewModel)
         val rvCafes: RecyclerView = view.findViewById<RecyclerView>(R.id.rvcafes)
         rvCafes.adapter = adapter
         rvCafes.layoutManager = LinearLayoutManager(this.context)
-
         text.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
