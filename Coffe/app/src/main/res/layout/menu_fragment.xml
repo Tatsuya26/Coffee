@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CCC8C8"
+    android:background="#D4D4D4"
     android:backgroundTintMode="screen"
     android:padding="10dp"
     tools:context=".menu.MenuFragment">
@@ -15,18 +15,19 @@
         android:layout_height="wrap_content"
         android:autofillHints="password"
         android:background="@drawable/roundededgesbox"
-        android:backgroundTint="@color/coffee_orange"
+        android:backgroundTint="#AB815D"
         android:backgroundTintMode="multiply"
         android:gravity="left"
         android:hint="Search..."
         android:inputType=""
-        android:padding="15dp"
+        android:padding="6dp"
         android:textColorHint="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck"
+        android:layout_marginTop="10dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvcafes"
@@ -37,6 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lSearch_bar"/>
+        app:layout_constraintTop_toBottomOf="@+id/lSearch_bar"
+        android:layout_marginTop="12dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

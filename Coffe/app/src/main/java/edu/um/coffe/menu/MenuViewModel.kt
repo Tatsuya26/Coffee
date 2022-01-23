@@ -1,5 +1,6 @@
 package edu.um.coffe.menu
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.um.coffe.MainApplication
@@ -48,6 +49,19 @@ class MenuViewModel : ViewModel() {
         viewModelScope.launch {
             model.removeFavorito(idCafe)
         }
+    }
+
+    fun isCafeInFavoritos(idCafe: String): Boolean{
+        var res = false
+        getFavourites()
+        for(cafe in this.favUser){
+            if(cafe.idCafe == idCafe){
+                Log.d(cafe.idCafe, idCafe)
+                res = true
+                break
+            }
+        }
+        return res
     }
 
     fun getUsername(): String {

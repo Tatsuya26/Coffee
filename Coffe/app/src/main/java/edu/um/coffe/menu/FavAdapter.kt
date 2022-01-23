@@ -3,6 +3,7 @@ package edu.um.coffe.menu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
@@ -40,7 +41,7 @@ class FavAdapter (var cafes : MutableList<Cafe>, var viewModel: MenuViewModel) :
                 notifyItemChanged(position)
             }
 
-            findViewById<MaterialButton>(R.id.buttonformap).setOnClickListener {
+            findViewById<ImageButton>(R.id.buttonformap).setOnClickListener {
                 viewModel.adicionarHistorico(cafes[position].idCafe)
                 val activity = this.context as MainActivity
                 val commit = activity.supportFragmentManager.beginTransaction().replace(

@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/</item>
+        <item>@font/abeezee</item>
         <item>@font/aclonica</item>
         <item>@font/acme</item>
+        <item>@font/advent_pro_medium</item>
+        <item>@font/alef</item>
         <item>@font/alfa_slab_one</item>
         <item>@font/amarante</item>
         <item>@font/anaheim</item>
+        <item>@font/hammersmith_one</item>
         <item>@font/marko_one</item>
+        <item>@font/raleway_light</item>
+        <item>@font/raleway_semibold</item>
     </array>
 </resources>

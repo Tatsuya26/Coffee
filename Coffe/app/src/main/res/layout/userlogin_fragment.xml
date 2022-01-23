@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginbackground"
+    android:background="@drawable/background"
     android:backgroundTint="#B87502"
     android:backgroundTintMode="multiply"
     tools:context=".login.UserLoginFragment">
@@ -13,14 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100sp"
-        android:fontFamily="@font/marko_one"
+        android:fontFamily="@font/abeezee"
         android:gravity="center"
         android:text="@string/auth"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="95sp"
-        android:textStyle="bold|italic" />
+        android:textSize="80sp"
+        android:textStyle="" />
 
     <TextView
         android:id="@+id/lusernameText"
@@ -28,11 +29,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/lautenticacao"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:text="Username"
+        android:layout_marginTop="233dp"
         android:autofillHints="name"
-        android:textColor="@android:color/holo_orange_light"
-        android:textSize="20sp"/>
+        android:text="Username"
+        android:textColor="#99812D"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/lusernameBox"
@@ -41,13 +43,14 @@
         android:layout_below="@+id/lusernameText"
         android:layout_marginTop="10dp"
         android:autofillHints="name"
-        android:background="#56FDFAFA"
-        android:backgroundTint="#DDCECE"
+        android:background="@drawable/text_stroke"
         android:gravity="center"
-        android:hint="Escreve aqui o teu username"
+        android:hint="Type your username here..."
         android:inputType="textPersonName"
+        android:textColor="@android:color/darker_gray"
         android:textColorHint="@android:color/darker_gray"
         tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+
 
     <TextView
         android:id="@+id/lPasswordText"
@@ -55,11 +58,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/lusernameBox"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:autofillHints="name"
         android:text="Password"
-        android:textColor="@android:color/holo_orange_light"
-        android:textSize="20sp" />
+        android:textColor="#99812D"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/lPasswordBox"
@@ -68,14 +72,13 @@
         android:layout_below="@+id/lPasswordText"
         android:layout_marginTop="10dp"
         android:autofillHints="password"
-        android:background="#56FDFAFA"
-        android:backgroundTint="#DDCECE"
+        android:background="@drawable/text_stroke"
         android:gravity="center"
-        android:hint="Escreve aqui a tua password"
+        android:hint="Type your password here..."
         android:inputType="textPassword"
+        android:textColor="@android:color/darker_gray"
         android:textColorHint="@android:color/darker_gray"
         tools:ignore="TouchTargetSizeCheck" />
-
 
     <ImageButton
         android:id="@+id/loginbut"
@@ -83,13 +86,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/lPasswordBox"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginEnd="1dp"
         android:background="@android:color/transparent"
         android:contentDescription="Button for login"
         android:minWidth="50dp"
         android:minHeight="50dp"
         android:scaleType="center"
-        android:src="@drawable/ic_baseline_forward_24"
+        android:src="@android:drawable/ic_media_play"
+        app:tint="#4d3221"
         tools:ignore="TouchTargetSizeCheck" />
 
 </RelativeLayout>

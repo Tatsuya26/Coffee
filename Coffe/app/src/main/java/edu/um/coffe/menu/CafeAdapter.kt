@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
@@ -28,7 +29,14 @@ class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : Recycl
         holder.itemView.apply {
             fav_button = findViewById(R.id.favorito)
             fav_button.setOnClickListener {
-                viewModel.adicionarFavorito(cafes[position].idCafe)
+                if(viewModel.isCafeInFavoritos(cafes[position].idCafe))
+                    viewModel.removerFavorito(cafes[position].idCafe)
+                else
+                    viewModel.adicionarFavorito(cafes[position].idCafe)
+                fav_button.setImageResource(R.drawable.fav2)
+                notifyItemChanged(position)
+                fav_button.setImageResource(R.drawable.fav)
+                notifyItemChanged(position)
             }
             findViewById<TextView>(R.id.nomeCafe).text = cafes[position].nome
             findViewById<TextView>(R.id.classificacaoCafe).text = cafes[position].rating.toString()
@@ -45,7 +53,7 @@ class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : Recycl
                 notifyItemChanged(position)
             }
 
-            findViewById<MaterialButton>(R.id.buttonformap).setOnClickListener {
+            findViewById<ImageButton>(R.id.buttonformap).setOnClickListener {
                 viewModel.adicionarHistorico(cafes[position].idCafe)
                 val activity = this.context as MainActivity
                 val commit = activity.supportFragmentManager?.beginTransaction()?.replace(

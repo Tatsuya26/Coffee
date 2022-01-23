@@ -4,25 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginbackground"
+    android:background="@drawable/background"
     android:backgroundTint="#B87502"
     android:backgroundTintMode="multiply"
     tools:context=".MainActivity">
+
 
     <TextView
         android:id="@+id/autenticacao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50sp"
-        android:fontFamily="@font/marko_one"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="80sp"
+        android:fontFamily="@font/abeezee"
         android:gravity="center"
-        android:text="@string/auth"
+        android:text="coffee?"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="95sp"
-        android:textStyle="bold|italic" />
-
+        android:textColor="#E4E4E4"
+        android:textSize="80sp"
+        android:textStyle="" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/entrar"
@@ -30,15 +32,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/autenticacao"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="240dp"
         android:backgroundTint="@android:color/transparent"
         android:text="LOGIN"
         android:textSize="60sp"
         android:textStyle="bold"
         app:cornerRadius="8dp"
-        app:rippleColor="#33AAAAAA"
-        app:strokeColor="@android:color/holo_orange_light"
-        app:strokeWidth="5dp" />
+        app:rippleColor="#7d6923"
+        app:strokeColor="#7d6923"
+        app:strokeWidth="3dp" />
 
     <TextView
         android:id="@+id/texto1"
@@ -46,8 +48,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/entrar"
         android:layout_alignLeft="@id/entrar"
+        android:layout_marginLeft="-49dp"
         android:layout_marginTop="10dp"
-        android:text="Não tem conta?"
+        android:text="Don't have an account?"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 
@@ -65,20 +68,20 @@
         android:minHeight="48dp"
         android:singleLine="false"
         android:text="@string/registar"
-        android:textColor="@android:color/holo_orange_light"
+        android:textColor="#7c652f"
         android:textSize="20sp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/skipbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cliqueaqui"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginBottom="10dp"
         android:background="@android:color/transparent"
         android:text="SKIP"
         android:textColor="@color/white"
-        android:textSize="30sp" />
+        android:textSize="26sp" />
 
 
 

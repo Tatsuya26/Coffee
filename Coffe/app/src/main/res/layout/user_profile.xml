@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#CCC8C8"
+    android:background="#D4D4D4"
     android:padding="10dp">
 
 
@@ -40,8 +40,9 @@
         android:gravity="center"
         android:text="Username"
         android:textAllCaps="true"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="#252525"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/avataruser"
@@ -49,24 +50,32 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/mudarpass"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:strokeColor="#9f8706"
+        app:strokeWidth="2dp"
+        android:theme="@style/Theme.MaterialComponents"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:backgroundTint="#A2A2A2"
+        app:background="@drawable/text_stroke2"
+        android:fontFamily="@font/raleway_semibold"
         android:minHeight="100dp"
-        android:text="Mudar password"
+        android:text="Change Password"
+        android:textAllCaps="false"
         android:textColor="@android:color/black"
-        android:textSize="25sp"
-        app:backgroundTint="#A39898"
-        app:layout_constraintTop_toBottomOf="@id/avataruser"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/avataruser" />
 
     <View
         android:id="@+id/underline"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="@android:color/darker_gray"
+        android:layout_marginTop="10dp"
+        android:background="#D4D4D4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mudarpass"/>
@@ -74,11 +83,16 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabsfavhist"
         android:layout_width="match_parent"
+
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="#D4D4D4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/underline">
-    </com.google.android.material.tabs.TabLayout>
+        app:layout_constraintTop_toBottomOf="@id/underline"
+        app:tabIndicatorColor="#2b1c14"
+        app:tabTextColor="#2b1c14"></com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpageuser"
