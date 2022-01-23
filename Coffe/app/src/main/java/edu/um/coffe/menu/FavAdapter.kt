@@ -29,7 +29,6 @@ class FavAdapter (var cafes : MutableList<Cafe>, var viewModel: MenuViewModel) :
             findViewById<TextView>(R.id.classificacaoCafe).text = cafes[position].rating.toString()
             findViewById<ImageView>(R.id.imagemCafe).setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_home_24))
             findViewById<TextView>(R.id.telefoneCafe).text = cafes[position].contacto.telefone
-            findViewById<TextView>(R.id.emailCafe).text = cafes[position].contacto.email
             findViewById<TextView>(R.id.moradaCafe).text = cafes[position].localizacao.endereco
 
             val visivel = cafes[position].visibilidade
