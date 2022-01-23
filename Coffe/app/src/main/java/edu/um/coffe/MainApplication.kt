@@ -18,8 +18,9 @@ class MainApplication :Application() {
         runBlocking {
             repository.insertCafe(Cafe(
                         "1", "Cafe Vianna", 4.1F, Localizacao("Praça da República, 4710-251 Braga",  41.55142318255202, -8.423442530782571617759),
-                        Contacto("+351253262336"), Horario(9,0,2,0),"1")
-                    )
+                        Contacto("+351253262336"), Horario(9,0,2,0),"map")
+            )
+            /*
             repository.insertCafe(Cafe(
                 "2", "Nata Lisboa - Braga", 4.4F, Localizacao("Largo de São Francisco 13 a 20, 4700-307 Braga",  41.55197878206903, -8.423875217288133),
                 Contacto("+351253257154"), Horario(8,30,19,30),"2")
@@ -146,7 +147,7 @@ class MainApplication :Application() {
                 Contacto("+351253682165"), Horario(8,0,19,0),"42"))
             repository.insertCafe(Cafe(
                 "43", "Dona Beer", 4.5F, Localizacao("R. 25 de Abril 356 R/c, 4710-914 Braga",  41.54817693813987, -8.419579573112214),
-                Contacto("+351965788377"), Horario(17,0,0,0),"43"))
+                Contacto("+351965788377"), Horario(17,0,0,0),"43"))*/
         }
     }
 }

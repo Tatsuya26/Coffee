@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [User::class, Cafe::class,Favoritos::class,Historico::class], version = 7, exportSchema = false)
+@Database(entities = [User::class, Cafe::class,Favoritos::class,Historico::class], version = 8, exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class CoffeeDatabase : RoomDatabase() {
     abstract val coffeDao : AppDao
