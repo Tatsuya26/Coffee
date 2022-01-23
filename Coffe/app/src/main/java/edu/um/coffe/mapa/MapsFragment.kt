@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
@@ -41,12 +42,13 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
     private var locationPermissionGranted = false
     private lateinit var map : GoogleMap
     private var lastKnownLocation: Location? = null
+    private lateinit var locationRequester : LocationRequest
+    private lateinit var locationCallback : LocationCallback
 
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
         map.mapType = MAP_TYPE_HYBRID
-        updateLocationUI()
-        getDeviceLocation()
+        getLocationAccess()
     }
 
     override fun onCreateView(
@@ -158,6 +160,56 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
             }
         } catch (e: SecurityException) {
         }
+    }
+
+    private fun getLocationAccess() {
+        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            map.isMyLocationEnabled = true
+            getLocationUpdates()
+            startLocationUpdates()
+        }
+        else
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1)
+    }
+
+    private fun getLocationUpdates() {
+        locationRequester = LocationRequest.create()
+        locationRequester.interval = 5000
+        locationRequester.fastestInterval = 2000
+        locationRequester.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                if (locationResult.locations.isNotEmpty()) {
+                    lastKnownLocation = locationResult.lastLocation
+                    if (lastKnownLocation != null) {
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                            LatLng(lastKnownLocation!!.latitude,
+                                lastKnownLocation!!.longitude), 17F))
+                        map.addMarker(MarkerOptions().position(LatLng(lastKnownLocation!!.latitude,
+                            lastKnownLocation!!.longitude)).title("Localizacao atual"))
+                        map.addMarker(MarkerOptions().position(LatLng(latitude,longitude)).title("Cafe"))
+                        var url = getDirectionURL(
+                            LatLng(lastKnownLocation!!.latitude,lastKnownLocation!!.longitude),
+                            LatLng(latitude,longitude),
+                            "walking"
+                        )
+                        GetDirection(url).execute()
+                    }
+                    else Toast.makeText(context,"Nao se encontrou mais locations",Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private fun startLocationUpdates() {
+        locationprovider.requestLocationUpdates(
+            locationRequester,
+            locationCallback,
+            Looper.getMainLooper()
+        )
     }
 
     private fun getDirectionURL(origin : LatLng,destination: LatLng,mode : String) : String{
