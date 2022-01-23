@@ -9,9 +9,6 @@ interface AppDao {
     @Insert (onConflict = OnConflictStrategy.IGNORE)
     suspend fun addCafe(cafe : Cafe)
 
-    @Insert (onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addHorario(horario : Horario)
-
     @Insert (onConflict = OnConflictStrategy.IGNORE)
     suspend fun addUser(user : User)
 
@@ -20,6 +17,9 @@ interface AppDao {
 
     @Insert (onConflict = OnConflictStrategy.IGNORE)
     suspend fun addHistoricoCafe(hist: Historico)
+
+    @Update
+    suspend fun updateUser(user : User)
 
     @Query("Select * from User where username = :username")
     suspend fun getUser(username: String) : User

@@ -13,6 +13,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
@@ -62,6 +63,13 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+        view.findViewById<ImageButton>(R.id.zoomInbtn).setOnClickListener {
+            map.moveCamera(CameraUpdateFactory.zoomIn())
+        }
+
+        view.findViewById<ImageButton>(R.id.zoomOutbtn).setOnClickListener {
+            map.moveCamera(CameraUpdateFactory.zoomOut())
+        }
     }
 
     private fun getLocationPermission() {

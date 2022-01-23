@@ -1,5 +1,6 @@
 package edu.um.coffe.menu
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,9 @@ import edu.um.coffe.MainActivity
 import edu.um.coffe.R
 import edu.um.coffe.data.Cafe
 import edu.um.coffe.mapa.MapsFragment
+import org.w3c.dom.Text
+import java.time.Duration
+import java.time.LocalTime
 
 class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : RecyclerView.Adapter<CafeAdapter.CafeViewHolder>() {
     lateinit var fav_button: AppCompatImageButton
@@ -24,6 +28,7 @@ class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : Recycl
         return CafeViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CafeViewHolder, position: Int) {
         holder.itemView.apply {
             fav_button = findViewById(R.id.favorito)
@@ -36,6 +41,12 @@ class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : Recycl
             findViewById<TextView>(R.id.telefoneCafe).text = cafes[position].contacto.telefone
             findViewById<TextView>(R.id.emailCafe).text = cafes[position].contacto.email
             findViewById<TextView>(R.id.moradaCafe).text = cafes[position].localizacao.endereco
+            cafes[position].horario.apply {
+                var timeAbertura = LocalTime.of(this.horaAbertura,minAbertura).toString()
+                var timeFecho = LocalTime.of(this.horaFecho,minFecho).toString()
+                findViewById<TextView>(R.id.horarioCafe).setText("Horario: $timeAbertura - $timeFecho")
+
+            }
 
             val visivel = cafes[position].visibilidade
             findViewById<ConstraintLayout>(R.id.cafeMoreInfo).visibility = if (visivel) View.VISIBLE else View.GONE
@@ -48,13 +59,13 @@ class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : Recycl
             findViewById<MaterialButton>(R.id.buttonformap).setOnClickListener {
                 viewModel.adicionarHistorico(cafes[position].idCafe)
                 val activity = this.context as MainActivity
-                val commit = activity.supportFragmentManager?.beginTransaction()?.replace(
+                val commit = activity.supportFragmentManager.beginTransaction().replace(
                     R.id.container,
                     MapsFragment.getInstance(
                         cafes[position].localizacao.latitude,
                         cafes[position].localizacao.longitude
                     )
-                )?.addToBackStack(null)?.commit()
+                ).addToBackStack(null).commit()
             }
 
         }

@@ -43,15 +43,22 @@ class UserLoginFragment : Fragment() {
             val b = userLoginViewModel.autenticarUtilizador()
             if (b) {
                 Toast.makeText(context,"LOGADO",Toast.LENGTH_LONG).show()
-                fragmentManager?.beginTransaction()?.replace(R.id.container, SwipableMenu.getInstance())
-                    ?.commit()
+                requireActivity().supportFragmentManager.popBackStack()
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, SwipableMenu.getInstance())
+                    .commit()
             }
             else {
-                Toast.makeText(context,"Utilizador nao existente",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,"Utilizador não existente",Toast.LENGTH_SHORT).show()
                 view.findViewById<EditText>(R.id.lPasswordBox).setText("")
                 view.findViewById<EditText>(R.id.lusernameBox).setText("")
             }
         }
+
+        view.findViewById<ImageButton>(R.id.loginBack).setOnClickListener {
+                requireActivity().supportFragmentManager.popBackStack()
+        }
+
 
         return view
     }

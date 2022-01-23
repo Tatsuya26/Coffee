@@ -7,7 +7,7 @@
     android:background="@drawable/loginbackground"
     android:backgroundTint="#B87502"
     android:backgroundTintMode="multiply"
-    tools:context=".MainActivity">
+    tools:context=".login.LoginFragment">
 
     <TextView
         android:id="@+id/autenticacao"

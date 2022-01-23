@@ -1,10 +1,7 @@
 package edu.um.coffe
 
 import android.app.Application
-import edu.um.coffe.data.Cafe
-import edu.um.coffe.data.CoffeeDatabase
-import edu.um.coffe.data.Contacto
-import edu.um.coffe.data.Localizacao
+import edu.um.coffe.data.*
 import edu.um.coffe.model.Model
 import kotlinx.coroutines.runBlocking
 
@@ -21,11 +18,11 @@ class MainApplication :Application() {
         runBlocking {
             repository.insertCafe(Cafe(
                         "1236", "Garrafa", 5F, Localizacao("Rua das finanças",  41.65433066576365, -8.43504224690325),
-                        Contacto("253222543", "garrafeira@cafe.com"), "naoseicomo"
-                    ))
+                        Contacto("253222543", "garrafeira@cafe.com"), Horario(9,0,18,0),"dsaidsja")
+                    )
             repository.insertCafe(
                 Cafe("1237","Selva",2.4F,Localizacao("Rua das finanças",  41.65433066576365, -8.43504224690325),
-                    Contacto("253222544","tropical@cafe.com"),"naoseicomo"))
+                    Contacto("253222544","tropical@cafe.com"), Horario(10,0,22,30),"naoseicomo"))
         }
     }
 }

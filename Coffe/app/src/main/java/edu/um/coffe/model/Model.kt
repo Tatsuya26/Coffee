@@ -88,4 +88,16 @@ class Model (private val appDao: AppDao) {
         var fav = Favoritos(idCafe,user!!.username)
         appDao.removeFavorito(fav)
     }
+
+    fun logout() {
+        user = null
+    }
+
+    suspend fun atualizaPassword(newPassword: String) {
+        if (user != null) {
+            val u = user
+            u!!.password = newPassword
+            appDao.updateUser(u)
+        }
+    }
 }

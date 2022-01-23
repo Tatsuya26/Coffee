@@ -101,6 +101,16 @@
             app:layout_constraintTop_toBottomOf="@id/emailCafe"
             app:layout_constraintStart_toStartOf="parent"/>
 
+        <TextView
+            android:id="@+id/horarioCafe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Horario : 10:00 - 19:00"
+            android:textSize="25sp"
+            app:layout_constraintTop_toBottomOf="@id/moradaCafe"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
 
         <ImageButton
             android:id="@+id/favorito"
@@ -115,7 +125,7 @@
             android:id="@+id/buttonformap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/moradaCafe"
+            app:layout_constraintTop_toBottomOf="@id/horarioCafe"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/ic_baseline_directions_24"

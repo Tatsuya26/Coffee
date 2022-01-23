@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import edu.um.coffe.MainApplication
 import edu.um.coffe.data.Cafe
 import edu.um.coffe.data.User
+import edu.um.coffe.model.Model
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -56,6 +57,16 @@ class MenuViewModel : ViewModel() {
         } else user!!.username
     }
 
+    fun logout() {
+        model.logout()
+        user = null
+    }
+
     fun getUserPassword(): String = user!!.password
+    fun atualizaPassword(newPassword: String) {
+        viewModelScope.launch {
+            model.atualizaPassword(newPassword)
+        }
+    }
 
 }
