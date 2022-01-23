@@ -48,19 +48,19 @@ class MainApplication :Application() {
                 Contacto("+351253068387"), Horario(7,30,19,30),"vicente"))
             repository.insertCafe(Cafe(
                 "10", "Pastelaria Dom Diogo", 4.2F, Localizacao("R. Conselheiro Bento Miguel 68, 4710-300 Braga",  41.55807466389588, -8.415752328936087),
-                Contacto("+351253186393"), Horario(8,0,21,0),"10"))
+                Contacto("+351253186393"), Horario(8,0,21,0),"pastelariadomdiogo"))
             repository.insertCafe(Cafe(
                 "11", "Pastelaria Veneza", 4.3F, Localizacao("Jardim da Avenida Central, 4710-229 Braga",  41.55106067925277, -8.422124359617762),
-                Contacto("+351253263217"), Horario(8,0,19,30),"11"))
+                Contacto("+351253263217"), Horario(8,0,19,30),"pastelariaveneza"))
             repository.insertCafe(Cafe(
                 "12", "Celeste Grupo", 3.9F, Localizacao("Av. da Liberdade 805, 4700-328 Braga",  41.55088996657379, -8.422951944277003),
-                Contacto("+351253520460"), Horario(8,0,21,0),"12"))
+                Contacto("+351253520460"), Horario(8,0,21,0),"celestegrupo"))
             repository.insertCafe(Cafe(
                 "13", "A Brasileira", 4.3F, Localizacao("Largo do Barão de São Martinho 17, 4700-328 Braga",  41.550827450139984, -8.42353034427703),
-                Contacto("+351253262104"), Horario(8,0,22,30),"13"))
+                Contacto("+351253262104"), Horario(8,0,22,30),"abrasileira"))
             repository.insertCafe(Cafe(
                 "14", "Sabores Gelados", 4.0F, Localizacao("Rua Do Souto Nº141/ E Largo Barão S.Martinho, 4700-306 Braga",  41.5508984956784, -8.424207632628873),
-                Contacto("+351253067144"), Horario(11,0,0,0),"14"))
+                Contacto("+351253067144"), Horario(11,0,0,0),"saboresgelados"))
             repository.insertCafe(Cafe(
                 "15", "Nut Braga", 4.2F, Localizacao("R. do Souto 135, 4705-329 Braga",  41.55083953747819, -8.424243144277),
                 Contacto("+351253263085"), Horario(13,0,0,0),"nutbraga"))
