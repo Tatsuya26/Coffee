@@ -2,9 +2,11 @@ package edu.um.coffe.mapa
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
+import android.location.LocationManager
 import android.os.AsyncTask
 import androidx.fragment.app.Fragment
 
@@ -17,6 +19,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -165,8 +168,9 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
     private fun getLocationAccess() {
         if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             map.isMyLocationEnabled = true
+            map.uiSettings.isMyLocationButtonEnabled = true
+            map.clear()
             getLocationUpdates()
-            startLocationUpdates()
         }
         else
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1)
@@ -177,12 +181,12 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
         locationRequester.interval = 5000
         locationRequester.fastestInterval = 2000
         locationRequester.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 if (locationResult.locations.isNotEmpty()) {
                     lastKnownLocation = locationResult.lastLocation
                     if (lastKnownLocation != null) {
+                        map.clear()
                         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                             LatLng(lastKnownLocation!!.latitude,
                                 lastKnownLocation!!.longitude), 17F))
@@ -196,10 +200,45 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
                         )
                         GetDirection(url).execute()
                     }
-                    else Toast.makeText(context,"Nao se encontrou mais locations",Toast.LENGTH_LONG).show()
                 }
             }
         }
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequester)
+        val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
+        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
+        task.addOnSuccessListener {
+            startLocationUpdates()
+        }
+        task.addOnFailureListener{exception ->
+            if (exception is ResolvableApiException){
+                // Location settings are not satisfied, but this can be fixed
+                // by showing the user a dialog.
+                try {
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+                    exception.startResolutionForResult(requireActivity(),
+                        1)
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    // Ignore the error.
+                }
+            }
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (locationPermissionGranted) startLocationUpdates()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopLocationUpdates()
+    }
+
+    private fun stopLocationUpdates() {
+        locationprovider.removeLocationUpdates(locationCallback)
     }
 
 
