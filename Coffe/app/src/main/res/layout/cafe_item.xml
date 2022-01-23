@@ -27,7 +27,6 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:contentDescription="Imagem de um cafe"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -4,6 +4,8 @@ import edu.um.coffe.data.*
 import edu.um.coffe.data.Cafe
 import edu.um.coffe.data.User
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+
 class Model (private val appDao: AppDao) {
 
     var user : User? = null
@@ -103,8 +105,16 @@ class Model (private val appDao: AppDao) {
 
     suspend fun atualizaFotoPerfil(novaFoto: Bitmap) {
         if(user != null) {
-            //adicionar bitmap
-
+            var u = user
+            u!!.foto = novaFoto
+            appDao.updateUser(u)
         }
+    }
+
+    fun getFotoPerfil(): Bitmap? {
+        if (user != null) {
+            return user!!.foto
+        }
+        else return null
     }
 }

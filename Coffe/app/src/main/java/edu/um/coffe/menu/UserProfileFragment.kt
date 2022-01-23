@@ -88,6 +88,8 @@ class UserProfileFragment : Fragment() {
             }
         }
 
+        val bitmap = viewModel.getImage()
+        if (bitmap != null) userImage.setImageBitmap(viewModel.getImage())
         return view
     }
 
@@ -116,9 +118,9 @@ class UserProfileFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == IMAGE_REQUEST_CODE) {
             userImage.setImageURI(data?.data)
-            userImage.layout(150,150,150,150)
-            val bitmap = userImage.getDrawable().toBitmap(150,150)
+            val bitmap = userImage.drawable.toBitmap(400,400)
             viewModel.mudarFotoPerfil(bitmap)
+            userImage.setImageBitmap(viewModel.getImage())
         }
     }
 }

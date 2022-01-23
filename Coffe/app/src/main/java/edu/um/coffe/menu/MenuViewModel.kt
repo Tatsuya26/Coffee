@@ -76,4 +76,10 @@ class MenuViewModel : ViewModel() {
         }
     }
 
+    fun getImage(): Bitmap? {
+        return runBlocking {
+            return@runBlocking model.getFotoPerfil()
+        }
+    }
+
 }
