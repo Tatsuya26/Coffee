@@ -29,6 +29,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.gms.tasks.Task
 import com.google.gson.Gson
@@ -47,9 +48,12 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
     private var lastKnownLocation: Location? = null
     private lateinit var locationRequester : LocationRequest
     private lateinit var locationCallback : LocationCallback
+    private lateinit var polyline: Polyline
 
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
+        val lineoption = PolylineOptions()
+        polyline = map.addPolyline(lineoption)
         map.mapType = MAP_TYPE_HYBRID
         getLocationAccess()
     }
@@ -127,43 +131,7 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
     }
 
 
-    @SuppressLint("MissingPermission")
-    private fun getDeviceLocation() {
-        /*
-         * Get the best and most recent location of the device, which may be null in rare
-         * cases when a location is not available.
-         */
-        try {
-            if (locationPermissionGranted) {
-                val locationResult = locationprovider.lastLocation
-                locationResult.addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        // Set the map's camera position to the current location of the device.
-                        lastKnownLocation =  task.result
-                        if (lastKnownLocation != null) {
-                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                LatLng(lastKnownLocation!!.latitude,
-                                    lastKnownLocation!!.longitude), 17F))
-                            map.addMarker(MarkerOptions().position(LatLng(lastKnownLocation!!.latitude,
-                                lastKnownLocation!!.longitude)).title("Localizacao atual"))
-                            map.addMarker(MarkerOptions().position(LatLng(latitude,longitude)).title("Cafe"))
-                            var url = getDirectionURL(
-                                LatLng(lastKnownLocation!!.latitude,lastKnownLocation!!.longitude),
-                                LatLng(latitude,longitude),
-                                "walking"
-                            )
-                            GetDirection(url).execute()
-                        }
-                    } else {
-                        map.moveCamera(CameraUpdateFactory
-                            .newLatLngZoom(LatLng(41.5607,-8.3962), 15.toFloat()))
-                        map?.uiSettings?.isMyLocationButtonEnabled = false
-                    }
-                }
-            }
-        } catch (e: SecurityException) {
-        }
-    }
+
 
     private fun getLocationAccess() {
         if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -178,22 +146,22 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
 
     private fun getLocationUpdates() {
         locationRequester = LocationRequest.create()
-        locationRequester.interval = 5000
-        locationRequester.fastestInterval = 2000
+        locationRequester.interval = 2000
+        locationRequester.fastestInterval = 1000
         locationRequester.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 if (locationResult.locations.isNotEmpty()) {
-                    lastKnownLocation = locationResult.lastLocation
-                    if (lastKnownLocation != null) {
-                        map.clear()
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                            LatLng(lastKnownLocation!!.latitude,
-                                lastKnownLocation!!.longitude), 17F))
+                    var location = locationResult.lastLocation
+                    if (location != null) {
+                        if (lastKnownLocation == null) map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                            LatLng(location.latitude,
+                                location.longitude), 17F))
+                        lastKnownLocation = location
                         map.addMarker(MarkerOptions().position(LatLng(lastKnownLocation!!.latitude,
                             lastKnownLocation!!.longitude)).title("Localizacao atual"))
                         map.addMarker(MarkerOptions().position(LatLng(latitude,longitude)).title("Cafe"))
-                        var url = getDirectionURL(
+                        val url = getDirectionURL(
                             LatLng(lastKnownLocation!!.latitude,lastKnownLocation!!.longitude),
                             LatLng(latitude,longitude),
                             "walking"
@@ -290,7 +258,7 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
                 lineoption.color(Color.RED)
                 lineoption.geodesic(true)
             }
-            map.addPolyline(lineoption)
+            polyline = map.addPolyline(lineoption)
         }
     }
 
