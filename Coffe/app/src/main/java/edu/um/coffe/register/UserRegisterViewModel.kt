@@ -29,7 +29,7 @@ class UserRegisterViewModel : ViewModel() {
     }
 
     fun registarUtilizador(bitmap: Bitmap) {
-        viewModelScope.launch {
+        runBlocking {
             val u = User(usernameText, passwordText, emailText,bitmap)
             if (usernameText != "" && passwordText != "" && emailText !="")
                 model.insertUser(u)

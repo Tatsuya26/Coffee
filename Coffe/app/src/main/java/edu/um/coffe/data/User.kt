@@ -10,5 +10,5 @@ data class User(
     val username: String,
     var password: String,
     val email: String,
-    val foto : Bitmap
+    var foto : Bitmap
 )

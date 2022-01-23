@@ -15,9 +15,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="4dp"
+        android:maxHeight="150dp"
+        android:maxWidth="150dp"
         android:contentDescription="Imagem do user"
-        android:src="@drawable/user"
         app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/user"
         app:layout_constraintTop_toTopOf="parent"
         />
 
