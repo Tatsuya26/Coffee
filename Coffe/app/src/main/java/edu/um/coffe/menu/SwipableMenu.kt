@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.button.MaterialButton
@@ -18,6 +19,7 @@ class SwipableMenu : Fragment() {
     }
     private lateinit var viewpager :ViewPager2
     private lateinit var logoutbtn : MaterialButton
+    private lateinit var viewModel: MenuViewModel
 
     inner class ScreenSlidePagerAdapter(fa : Fragment) : FragmentStateAdapter(fa){
         override fun getItemCount(): Int {
@@ -36,8 +38,10 @@ class SwipableMenu : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.swipable_menu,container,false)
+        viewModel = ViewModelProvider(this)[MenuViewModel::class.java]
         logoutbtn = view.findViewById(R.id.logoutbtn)
         logoutbtn.setOnClickListener {
+            viewModel.logout()
             requireActivity().supportFragmentManager.apply {
                 beginTransaction()
                     .replace(R.id.container, LoginFragment.newInstance())
