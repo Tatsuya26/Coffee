@@ -1,7 +1,7 @@
 package edu.um.coffe.menu
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
+
 import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
@@ -37,10 +37,12 @@ class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : Recycl
             fav_button.setOnClickListener {
                 viewModel.adicionarFavorito(cafes[position].idCafe)
             }
+
             val res = context.resources.getIdentifier(cafes[position].fotos,"drawable",context.packageName)
             findViewById<TextView>(R.id.nomeCafe).text = cafes[position].nome
             findViewById<TextView>(R.id.classificacaoCafe).text = cafes[position].rating.toString()
             findViewById<ImageView>(R.id.imagemCafe).setImageDrawable(resources.getDrawable(res))
+
             findViewById<TextView>(R.id.telefoneCafe).text = cafes[position].contacto.telefone
             findViewById<TextView>(R.id.moradaCafe).text = cafes[position].localizacao.endereco
             cafes[position].horario.apply {
