@@ -92,4 +92,12 @@ class Model (private val appDao: AppDao) {
     fun logout() {
         user = null
     }
+
+    suspend fun atualizaPassword(newPassword: String) {
+        if (user != null) {
+            val u = user
+            u!!.password = newPassword
+            appDao.updateUser(u)
+        }
+    }
 }

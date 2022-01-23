@@ -13,6 +13,7 @@ data class Cafe (
     @Embedded
     val localizacao: Localizacao,
     @Embedded val contacto: Contacto,
+    @Embedded val horario: Horario,
     val fotos : String
     )
 {
