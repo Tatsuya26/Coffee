@@ -100,4 +100,5 @@ class Model (private val appDao: AppDao) {
             appDao.updateUser(u)
         }
     }
+
 }

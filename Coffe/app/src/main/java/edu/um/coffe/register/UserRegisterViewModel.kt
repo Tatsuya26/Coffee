@@ -1,5 +1,7 @@
 package edu.um.coffe.register
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.um.coffe.MainApplication
@@ -26,9 +28,9 @@ class UserRegisterViewModel : ViewModel() {
         emailText = email
     }
 
-    fun registarUtilizador() {
+    fun registarUtilizador(bitmap: Bitmap) {
         viewModelScope.launch {
-            val u = User(usernameText, passwordText, emailText)
+            val u = User(usernameText, passwordText, emailText,bitmap)
             if (usernameText != "" && passwordText != "" && emailText !="")
                 model.insertUser(u)
         }

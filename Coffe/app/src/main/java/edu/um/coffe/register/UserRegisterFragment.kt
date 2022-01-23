@@ -1,5 +1,6 @@
 package edu.um.coffe.register
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +49,7 @@ class UserRegisterFragment : Fragment() {
         registerBtn.setOnClickListener {
             var b = false
             registerViewModel.run {
-                registarUtilizador()
+                registarUtilizador(BitmapFactory.decodeResource(resources,R.drawable.user))
                 b = autenticarUtilizador()
             }
             if (b) {
