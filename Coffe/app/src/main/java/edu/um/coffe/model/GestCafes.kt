@@ -1,81 +1,120 @@
 package edu.um.coffe.model
 
-import edu.um.coffe.data.AppDao
+import edu.um.coffe.data.*
+import edu.um.coffe.data.Cafe
+import edu.um.coffe.data.User
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 
-class GestCafes {
-    //private var bd: DataBaseAccess
-    private var cafes: List<Cafe>
-    private var currentUser: User
+class GestCafes (private val appDao: AppDao) {
 
-    init {
-        cafes = listOf()
-        currentUser = User()    //empty constructor
+    var user : User? = null
+    private var cafes: List<Cafe> = appDao.getCafes();
+    lateinit var favUser : MutableList<Cafe>
+    lateinit var histUser : MutableList<Cafe>
+
+
+    suspend fun insertCafe(cafe : Cafe) {
+        appDao.addCafe(cafe)
     }
 
-    fun loadCafes(){
-        //TODO: this.cafes = bd.getCafes()
+    suspend fun insertUser(user : User) {
+        appDao.addUser(user)
     }
 
-    fun login(userName: String, password: String){
-        //User u = bd.getUser(userName, password)
-        //if(u.password == password) this.currentUser = u
-        //else                       throw Exception?
-
-        //verificação aqui ou no DataBaseAccess?
-    }
-
-    fun changeUserName(newUserName: String){
-        currentUser.setUserName(newUserName)
-        //TODO: update base de dados
-    }
-
-    fun changePassword(oldPassword: String, newPassword: String){
-        //verificação aqui ou no DataBaseAccess?
-        //TODO: db.changePassword(oldPassword, newPassword)
-    }
-
-    fun addToHistorico(idCafe: String): Boolean{
-        if(idCafeExiste(idCafe)) {
-            currentUser.addToHistorico(idCafe)
-            //TODO: update base de dados
-            return true
-        }
-        else
+    suspend fun autenticarUtilizador(username: String,password: String) : Boolean {
+        val u: User? = appDao.getUser(username)
+        if (u == null || u.password.compareTo(password) != 0) {
             return false
+        }
+        user = u
+        favUser = getFavoritos()
+        histUser = getHistorico()
+        return true
     }
 
-    fun addToFavoritos(idCafe: String): Boolean{
-        if(idCafeExiste(idCafe)) {
-            currentUser.addToFavoritos(idCafe)
-            //TODO: update base de dados
-            return true
-        }
-        else
-            return false
+    suspend fun addToFavoritos(idCafe: String): Boolean{
+        return if(idCafeExiste(idCafe) && user != null) {
+            var fav : Favoritos = Favoritos(idCafe,user!!.username)
+            appDao.addFavoriteCafe(fav)
+            true
+        } else
+            false
     }
 
     private fun idCafeExiste(idCafe: String): Boolean{
         var res = false
-
         for(cafe in this.cafes) {
-            if (cafe.getId() == idCafe) {
+            if (cafe.idCafe == idCafe) {
                 res = true
                 break
             }
         }
-
         return res
     }
 
-    fun changeProfilePicture(foto: String){
-        currentUser.setProfilePicture(foto)
-        //TODO: update base de dados
+    fun getCafes(): List<Cafe> {
+        return appDao.getCafes()
     }
 
-    fun createNewUser(userName: String, password: String, email: String): User{
-        //FIXME: standard photo
-        var newUser: User = User(userName, email, "standard_photo.jpg")
-        //TODO: db.addUser(user)
-        return newUser
+    suspend fun addToHistorico(idCafe: String) {
+        if(idCafeExiste(idCafe) && user != null) {
+            var hist : Historico = Historico(idCafe,user!!.username)
+            appDao.addHistoricoCafe(hist)
+        }
+    }
+
+    suspend fun getFavoritos() : MutableList<Cafe> {
+        if (user == null) return mutableListOf()
+        var favs : List<Favoritos> = appDao.getFavoriteCafesFromUser(user!!.username)
+        var cafesFav = mutableListOf<Cafe>()
+        for (fav in favs) {
+            var c :Cafe = appDao.getCafe(fav.idCafe)
+            cafesFav.add(c)
+        }
+        return cafesFav
+    }
+
+    suspend fun getHistorico() : MutableList<Cafe> {
+        if (user == null) return mutableListOf()
+        var hist : List<Historico> = appDao.getHistoricoFromUser(user!!.username)
+        var cafesFav = mutableListOf<Cafe>()
+        for (fav in hist) {
+            var c :Cafe = appDao.getCafe(fav.idCafe)
+            cafesFav.add(c)
+        }
+        return cafesFav
+    }
+
+    suspend fun removeFavorito(idCafe: String) {
+        var fav = Favoritos(idCafe,user!!.username)
+        appDao.removeFavorito(fav)
+    }
+
+    fun logout() {
+        user = null
+    }
+
+    suspend fun atualizaPassword(newPassword: String) {
+        if (user != null) {
+            val u = user
+            u!!.password = newPassword
+            appDao.updateUser(u)
+        }
+    }
+
+    suspend fun atualizaFotoPerfil(novaFoto: Bitmap) {
+        if(user != null) {
+            var u = user
+            u!!.foto = novaFoto
+            appDao.updateUser(u)
+        }
+    }
+
+    fun getFotoPerfil(): Bitmap? {
+        if (user != null) {
+            return user!!.foto
+        }
+        else return null
     }
 }

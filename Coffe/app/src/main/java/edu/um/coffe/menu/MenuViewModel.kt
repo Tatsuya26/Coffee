@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import edu.um.coffe.MainApplication
 import edu.um.coffe.data.Cafe
 import edu.um.coffe.data.User
-import edu.um.coffe.model.Model
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 

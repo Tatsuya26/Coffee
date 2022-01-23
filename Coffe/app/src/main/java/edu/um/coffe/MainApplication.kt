@@ -2,66 +2,63 @@ package edu.um.coffe
 
 import android.app.Application
 import edu.um.coffe.data.*
-import edu.um.coffe.model.Model
+import edu.um.coffe.model.GestCafes
 import kotlinx.coroutines.runBlocking
 
 class MainApplication :Application() {
     val database by lazy { CoffeeDatabase.getInstance(this) }
 
     companion object {
-        lateinit var repository : Model
+        lateinit var repository : GestCafes
     }
 
     override fun onCreate() {
         super.onCreate()
-        repository =  Model(database.coffeDao)
+        repository =  GestCafes(database.coffeDao)
         runBlocking {
             repository.insertCafe(Cafe(
                         "1", "Cafe Vianna", 4.1F, Localizacao("Praça da República, 4710-251 Braga",  41.55142318255202, -8.423442530782571617759),
-                        Contacto("+351253262336"), Horario(9,0,2,0),"cafevianna")
-                    )
-
+                        Contacto("+351253262336"), Horario(9,0,2,0),"cafevianna"))
             repository.insertCafe(Cafe(
                 "2", "Nata Lisboa - Braga", 4.4F, Localizacao("Largo de São Francisco 13 a 20, 4700-307 Braga",  41.55197878206903, -8.423875217288133),
                 Contacto("+351253257154"), Horario(8,30,19,30),"natalisboa")
             )
-            /*
             repository.insertCafe(Cafe(
                 "3", "Leitaria da Quinta do Paço", 4.5F, Localizacao("Largo de São Francisco 37, 4700-228 Braga",  41.55169589528217, -8.423913301947332),
-                Contacto("+351253727092"), Horario(9,0,19,0),"3"))
+                Contacto("+351253727092"), Horario(9,0,19,0),"leitariadaquintadopaco"))
             repository.insertCafe(Cafe(
                 "4", "Pastelaria Bella Braga", 4.7F, Localizacao(" R. dos Chãos 29, 4710-230 Braga",  41.55250862378731, -8.423624586606595),
-                Contacto("+351253178012"), Horario(7,0,20,0),"4"))
+                Contacto("+351253178012"), Horario(7,0,20,0),"bellabraga"))
             repository.insertCafe(Cafe(
                 "5", "Montalegrense", 4.3F, Localizacao("Praça Alexandre Herculano 1, 4700-387 Braga",  41.553749279252415, -8.423796286606533),
-                Contacto("+351253676306"), Horario(7,30,23,0),"5"))
+                Contacto("+351253676306"), Horario(7,30,23,0),"montalegrense"))
             repository.insertCafe(Cafe(
                 "6", "Casa das Natas", 4.4F, Localizacao("4, Praça da Galiza 8",  41.55468405061853, -8.425791803793611),
-                Contacto("+351253681353"), Horario(7,30,20,0),"6"))
+                Contacto("+351253681353"), Horario(7,30,20,0),"casadasnatas"))
             repository.insertCafe(Cafe(
                 "7", "Berber Shisha Café Marroquino", 4.4F, Localizacao("Av. Gen. Norton de Matos 118, 4700-387 Braga",  41.55608630771275, -8.424815830782451),
-                Contacto("+351253215462"), Horario(20,0,2,0),"7"))
+                Contacto("+351253215462"), Horario(20,0,2,0),"beber"))
             repository.insertCafe(Cafe(
                 "8", "Braga Parque, Pastelaria & Pão Quente", 4.2F, Localizacao("R. Conselheiro Januário 43, 4700-361 Braga",  41.55644053718427, -8.420937073112071),
-                Contacto("+351253275226"), Horario(7,0,20,0),"8"))
+                Contacto("+351253275226"), Horario(7,0,20,0),"bragaparque"))
             repository.insertCafe(Cafe(
                 "9", "Doçaria de S. Vicente", 4.5F, Localizacao("R. Conselheiro Januário 151, 4700-373 Braga",  41.557030320978704, -8.419296815441673),
-                Contacto("+351253068387"), Horario(7,30,19,30),"9"))
+                Contacto("+351253068387"), Horario(7,30,19,30),"vicente"))
             repository.insertCafe(Cafe(
                 "10", "Pastelaria Dom Diogo", 4.2F, Localizacao("R. Conselheiro Bento Miguel 68, 4710-300 Braga",  41.55807466389588, -8.415752328936087),
-                Contacto("+351253186393"), Horario(8,0,21,0),"10"))
+                Contacto("+351253186393"), Horario(8,0,21,0),"pastelariadomdiogo"))
             repository.insertCafe(Cafe(
                 "11", "Pastelaria Veneza", 4.3F, Localizacao("Jardim da Avenida Central, 4710-229 Braga",  41.55106067925277, -8.422124359617762),
-                Contacto("+351253263217"), Horario(8,0,19,30),"11"))
+                Contacto("+351253263217"), Horario(8,0,19,30),"pastelariaveneza"))
             repository.insertCafe(Cafe(
                 "12", "Celeste Grupo", 3.9F, Localizacao("Av. da Liberdade 805, 4700-328 Braga",  41.55088996657379, -8.422951944277003),
-                Contacto("+351253520460"), Horario(8,0,21,0),"12"))
+                Contacto("+351253520460"), Horario(8,0,21,0),"celestegrupo"))
             repository.insertCafe(Cafe(
                 "13", "A Brasileira", 4.3F, Localizacao("Largo do Barão de São Martinho 17, 4700-328 Braga",  41.550827450139984, -8.42353034427703),
-                Contacto("+351253262104"), Horario(8,0,22,30),"13"))
+                Contacto("+351253262104"), Horario(8,0,22,30),"abrasileira"))
             repository.insertCafe(Cafe(
                 "14", "Sabores Gelados", 4.0F, Localizacao("Rua Do Souto Nº141/ E Largo Barão S.Martinho, 4700-306 Braga",  41.5508984956784, -8.424207632628873),
-                Contacto("+351253067144"), Horario(11,0,0,0),"14"))
+                Contacto("+351253067144"), Horario(11,0,0,0),"saboresgelados"))
             repository.insertCafe(Cafe(
                 "15", "Nut Braga", 4.2F, Localizacao("R. do Souto 135, 4705-329 Braga",  41.55083953747819, -8.424243144277),
                 Contacto("+351253263085"), Horario(13,0,0,0),"nutbraga"))
@@ -73,7 +70,7 @@ class MainApplication :Application() {
                 Contacto("+351253273711"), Horario(7,0,19,0),"pastelariabomjesus"))
             repository.insertCafe(Cafe(
                 "18", "A Loja Dos Pastéis De Chaves", 3.9F, Localizacao("R. Dom Diogo de Sousa 125, 4700-319 Braga",  41.55051969586684, -8.427375015441806),
-                Contacto("+351253132067"), Horario(9,0,2,0),"alojadospasteisdechaves"))
+                Contacto("+351253132067"), Horario(9,0,2,0),"pasteischaves"))
             repository.insertCafe(Cafe(
                 "19", "APE Coffee - Braga", 4.7F, Localizacao("R. Dom Frei Caetano Brandão 61, 4700-031 Braga",  41.55046590841129, -8.42848218660659),
                 Contacto("+351925954971"), Horario(14,0,0,0),"apecoffeebraga"))
@@ -82,7 +79,7 @@ class MainApplication :Application() {
                 Contacto("+351253035625"), Horario(7,30,19,0),"tibiasdebraga"))
             repository.insertCafe(Cafe(
                 "21", "Café Snack Bar Porta Nova", 4.5F, Localizacao("R. Dom Diogo de Sousa 32 40, 4700-422 Braga",  41.55027217925293, -8.42856720194739),
-                Contacto("+351969808554"), Horario(8,0,23,0),"cafesnackbarportanova"))
+                Contacto("+351969808554"), Horario(8,0,23,0),"cafesnackportanova"))
             repository.insertCafe(Cafe(
                 "22", "Pátio da Sé", 4.4F, Localizacao("R. Dom Paio Mendes n.63, 4700-424 Braga",  41.54988342079363, -8.428042857771446),
                 Contacto("+351963135911"), Horario(14,0,4,0),"patiodase"))
@@ -112,7 +109,7 @@ class MainApplication :Application() {
                 Contacto("+351253262980"), Horario(7,0,0,0),"cafesantacruz"))
             repository.insertCafe(Cafe(
                 "31", "Pastel de feira Braga Amor de Café", 4.6F, Localizacao("R. São Marcos N:129, 4700-328 Braga",  41.54995369614801, -8.423790657771479),
-                Contacto("+351967227158"), Horario(11,0,20,0),"pasteldafeirabragaamordecafe"))
+                Contacto("+351967227158"), Horario(11,0,20,0),"mordecafe"))
             repository.insertCafe(Cafe(
                 "32", "Pastelaria Doce Praça", 3.8F, Localizacao("Av. da Liberdade 708, 4710-229 Braga",  41.54947702069276, -8.420515373112234),
                 Contacto("+351253682095"), Horario(6,30,20,30),"pastelariadocepraca"))
@@ -148,7 +145,7 @@ class MainApplication :Application() {
                 Contacto("+351253682165"), Horario(8,0,19,0),"caffeferrari"))
             repository.insertCafe(Cafe(
                 "43", "Dona Beer", 4.5F, Localizacao("R. 25 de Abril 356 R/c, 4710-914 Braga",  41.54817693813987, -8.419579573112214),
-                Contacto("+351965788377"), Horario(17,0,0,0),"43"))*/
+                Contacto("+351965788377"), Horario(17,0,0,0),"donabeer"))
         }
     }
 }
