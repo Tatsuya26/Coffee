@@ -1,5 +1,6 @@
 package edu.um.coffe.menu
 
+import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.um.coffe.MainApplication
@@ -66,6 +67,12 @@ class MenuViewModel : ViewModel() {
     fun atualizaPassword(newPassword: String) {
         viewModelScope.launch {
             model.atualizaPassword(newPassword)
+        }
+    }
+
+    fun mudarFotoPerfil(novaFoto: Bitmap) {
+        viewModelScope.launch {
+            model.atualizaFotoPerfil(novaFoto)
         }
     }
 

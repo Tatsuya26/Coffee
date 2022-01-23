@@ -3,7 +3,7 @@ package edu.um.coffe.model
 import edu.um.coffe.data.*
 import edu.um.coffe.data.Cafe
 import edu.um.coffe.data.User
-
+import android.graphics.Bitmap
 class Model (private val appDao: AppDao) {
 
     var user : User? = null
@@ -98,6 +98,13 @@ class Model (private val appDao: AppDao) {
             val u = user
             u!!.password = newPassword
             appDao.updateUser(u)
+        }
+    }
+
+    suspend fun atualizaFotoPerfil(novaFoto: Bitmap) {
+        if(user != null) {
+            //adicionar bitmap
+
         }
     }
 }

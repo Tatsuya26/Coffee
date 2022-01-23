@@ -16,6 +16,10 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import edu.um.coffe.R
+import android.graphics.Bitmap
+
+import android.graphics.drawable.BitmapDrawable
+import androidx.core.graphics.drawable.toBitmap
 
 
 class UserProfileFragment : Fragment() {
@@ -113,6 +117,8 @@ class UserProfileFragment : Fragment() {
         if(requestCode == IMAGE_REQUEST_CODE) {
             userImage.setImageURI(data?.data)
             userImage.layout(150,150,150,150)
+            val bitmap = userImage.getDrawable().toBitmap(150,150)
+            viewModel.mudarFotoPerfil(bitmap)
         }
     }
 }
