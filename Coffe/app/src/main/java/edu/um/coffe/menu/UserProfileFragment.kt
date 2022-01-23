@@ -55,7 +55,7 @@ class UserProfileFragment : Fragment() {
             else return HistoricoFragment()
         }
     }
-    
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -123,6 +123,14 @@ class UserProfileFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == IMAGE_REQUEST_CODE) {
             userImage.setImageURI(data?.data)
+            userImage.layout(150,150,150,150)
+
+            val name : String = java.lang.String.valueOf(userImage.tag)
+            val res = resources.getIdentifier(name,"drawable","drawable" )
+
+            
+
+
         }
     }
 }
