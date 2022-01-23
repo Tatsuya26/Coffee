@@ -15,8 +15,6 @@ class MenuViewModel : ViewModel() {
     var histUser : MutableList<Cafe> = mutableListOf()
     var user : User? = model.user
 
-
-
     fun adicionarFavorito(cafeid: String) {
         viewModelScope.launch {
             model.addToFavoritos(cafeid)
@@ -62,4 +60,7 @@ class MenuViewModel : ViewModel() {
         model.logout()
         user = null
     }
+
+    fun getUserPassword(): String = user!!.password
+
 }

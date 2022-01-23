@@ -37,24 +37,26 @@ class LoginFragment : Fragment() {
         var skipbtn = view.findViewById<MaterialButton>(R.id.skipbtn)
 
         loginbtn.setOnClickListener {
-            fragmentManager?.apply {
+            requireActivity().supportFragmentManager?.apply {
                 beginTransaction()
                     .replace(R.id.container, UserLoginFragment.newInstance())
+                    .addToBackStack(null)
                     .commit()
             }
         }
 
 
         registText.setOnClickListener {
-            fragmentManager?.apply {
+            requireActivity().supportFragmentManager?.apply {
                 beginTransaction()
                     .replace(R.id.container, UserRegisterFragment.newInstance())
+                    .addToBackStack(null)
                     .commit()
             }
         }
 
         skipbtn.setOnClickListener {
-            fragmentManager?.apply {
+            requireActivity().supportFragmentManager?.apply {
                 beginTransaction()
                     .replace(R.id.container, SwipableMenu.getInstance())
                     .commit()
