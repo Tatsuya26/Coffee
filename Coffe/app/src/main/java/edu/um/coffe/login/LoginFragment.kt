@@ -45,7 +45,6 @@ class LoginFragment : Fragment() {
             }
         }
 
-
         registText.setOnClickListener {
             requireActivity().supportFragmentManager?.apply {
                 beginTransaction()

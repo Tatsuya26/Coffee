@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import edu.um.coffe.R
 import edu.um.coffe.login.LoginFragment
+import edu.um.coffe.menu.SwipableMenu
 
 class UserRegisterFragment : Fragment() {
     companion object {
@@ -44,13 +46,33 @@ class UserRegisterFragment : Fragment() {
         }
 
         registerBtn.setOnClickListener {
-            registerViewModel.run { registarUtilizador() }
-            fragmentManager?.beginTransaction()?.replace(R.id.container,LoginFragment.newInstance())
+            var b = false
+            registerViewModel.run {
+                registarUtilizador()
+                b = autenticarUtilizador()
+            }
+            if (b) {
+                requireActivity().supportFragmentManager.popBackStack()
+                requireActivity().supportFragmentManager.apply {
+                    beginTransaction()
+                        .replace(R.id.container, SwipableMenu.getInstance())
+                        .addToBackStack(null)
+                        .commit()
+                }
+                Toast.makeText(context,"Utilizador criado e logado",Toast.LENGTH_LONG).show()
+            }
+            else {
+                view.findViewById<EditText>(R.id.rusernameBox).setText("")
+                view.findViewById<EditText>(R.id.rPasswordBox).setText("")
+                view.findViewById<EditText>(R.id.emailBox).setText("")
+                Toast.makeText(context,"Utilizador nao pode ser criado",Toast.LENGTH_LONG).show()
+            }
         }
 
         view.findViewById<ImageButton>(R.id.signupBack).setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.container, LoginFragment.newInstance())
-                ?.commit()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.container, LoginFragment.newInstance())
+                .commit()
         }
         return view
     }
