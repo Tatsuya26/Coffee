@@ -84,21 +84,12 @@
             />
 
         <TextView
-            android:id="@+id/emailCafe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email: LI4@GMAIL.COM"
-            android:textSize="25sp"
-            app:layout_constraintTop_toBottomOf="@id/telefoneCafe"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
             android:id="@+id/moradaCafe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Morada = Gualtar"
-            android:textSize="25sp"
-            app:layout_constraintTop_toBottomOf="@id/emailCafe"
+            android:text="Morada = R. Dom Frei Caetano Brandão 61, 4700-031 Braga"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/horarioCafe"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
@@ -107,7 +98,7 @@
             android:layout_height="wrap_content"
             android:text="Horario : 10:00 - 19:00"
             android:textSize="25sp"
-            app:layout_constraintTop_toBottomOf="@id/moradaCafe"
+            app:layout_constraintTop_toBottomOf="@id/telefoneCafe"
             app:layout_constraintStart_toStartOf="parent"
             />
 
@@ -125,7 +116,7 @@
             android:id="@+id/buttonformap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/horarioCafe"
+            app:layout_constraintTop_toBottomOf="@id/moradaCafe"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/ic_baseline_directions_24"
