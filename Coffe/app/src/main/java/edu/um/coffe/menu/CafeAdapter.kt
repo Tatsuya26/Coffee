@@ -22,7 +22,7 @@ import org.w3c.dom.Text
 import java.time.Duration
 import java.time.LocalTime
 
-class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : RecyclerView.Adapter<CafeAdapter.CafeViewHolder>() {
+class CafeAdapter (var cafes : MutableList<Cafe>,var viewModel: MenuViewModel,var favoritos : Boolean) : RecyclerView.Adapter<CafeAdapter.CafeViewHolder>() {
     lateinit var fav_button: AppCompatImageButton
     inner class CafeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView)
 
@@ -36,8 +36,10 @@ class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : Recycl
         holder.itemView.apply {
             fav_button = findViewById(R.id.favorito)
             fav_button.setOnClickListener {
-                if(viewModel.isCafeInFavoritos(cafes[position].idCafe)) {
+                if(favoritos) {
                     viewModel.removerFavorito(cafes[position].idCafe)
+                    cafes.removeAt(position)
+                    notifyDataSetChanged()
                 }
                 else {
                     viewModel.adicionarFavorito(cafes[position].idCafe)

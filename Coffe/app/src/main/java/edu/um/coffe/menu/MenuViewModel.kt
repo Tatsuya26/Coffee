@@ -12,7 +12,7 @@ import kotlinx.coroutines.runBlocking
 
 class MenuViewModel : ViewModel() {
     private val model = MainApplication.repository
-    var cafes : List<Cafe> = mutableListOf()
+    var cafes : MutableList<Cafe> = mutableListOf()
     var favUser : MutableList<Cafe> = mutableListOf()
     var histUser : MutableList<Cafe> = mutableListOf()
     var user : User? = model.user
@@ -24,7 +24,7 @@ class MenuViewModel : ViewModel() {
     }
     fun getCafes() {
         runBlocking {
-            cafes = model.getCafes().sortedByDescending { it.rating }
+            cafes = model.getCafes().sortedByDescending { it.rating } as MutableList<Cafe>
         }
     }
 

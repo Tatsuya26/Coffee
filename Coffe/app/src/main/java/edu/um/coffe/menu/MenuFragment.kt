@@ -20,7 +20,7 @@ class MenuFragment (): Fragment(menu_fragment) {
     private lateinit var adapter: CafeAdapter
     private lateinit var text: EditText
 
-    var cafes : List<Cafe> = mutableListOf()
+    var cafes : MutableList<Cafe> = mutableListOf()
 
     companion object{
         fun newInstance() = MenuFragment()
@@ -36,7 +36,7 @@ class MenuFragment (): Fragment(menu_fragment) {
         text = view.findViewById(R.id.lSearch_bar)
         viewModel.getCafes()
         cafes = viewModel.cafes
-        adapter = CafeAdapter(cafes,viewModel)
+        adapter = CafeAdapter(cafes,viewModel,false)
         val rvCafes: RecyclerView = view.findViewById<RecyclerView>(R.id.rvcafes)
         rvCafes.adapter = adapter
         rvCafes.layoutManager = LinearLayoutManager(this.context)

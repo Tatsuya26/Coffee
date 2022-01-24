@@ -93,7 +93,6 @@
             android:text="Morada : R. Dom Frei Caetano Brandão 61, 4700-031 Braga"
             android:textColor="#0E0E0E"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/horarioCafe" />
 

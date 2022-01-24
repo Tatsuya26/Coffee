@@ -29,7 +29,7 @@ class FavoritosFragment(): Fragment() {
         favCafes = viewModel.favUser
 
         val rvFavs = view.findViewById<RecyclerView>(R.id.rvlistas)
-        var adapter = CafeAdapter(favCafes,viewModel)
+        var adapter = CafeAdapter(favCafes,viewModel,true)
         rvFavs.adapter = adapter
         rvFavs.layoutManager = LinearLayoutManager(this.context)
 

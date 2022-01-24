@@ -29,7 +29,7 @@ class HistoricoFragment() : Fragment() {
         histCafe = viewModel.histUser
 
         val rvFavs = view.findViewById<RecyclerView>(R.id.rvlistas)
-        val adapter = CafeAdapter(histCafe, viewModel)
+        val adapter = CafeAdapter(histCafe, viewModel,false)
         rvFavs.adapter = adapter
         rvFavs.layoutManager = LinearLayoutManager(this.context)
 

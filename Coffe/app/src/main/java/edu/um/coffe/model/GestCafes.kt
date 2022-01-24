@@ -54,8 +54,8 @@ class GestCafes (private val appDao: DataBaseAcess) {
         return res
     }
 
-    fun getCafes(): List<Cafe> {
-        return appDao.getCafes()
+    fun getCafes(): MutableList<Cafe> {
+        return appDao.getCafes() as MutableList<Cafe>
     }
 
     suspend fun addToHistorico(idCafe: String) {
