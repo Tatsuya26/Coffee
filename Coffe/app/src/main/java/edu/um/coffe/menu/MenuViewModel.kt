@@ -1,6 +1,7 @@
 package edu.um.coffe.menu
 
 import android.util.Log
+import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.um.coffe.MainApplication
@@ -56,7 +57,6 @@ class MenuViewModel : ViewModel() {
         getFavourites()
         for(cafe in this.favUser){
             if(cafe.idCafe == idCafe){
-                Log.d(cafe.idCafe, idCafe)
                 res = true
                 break
             }
@@ -70,6 +70,28 @@ class MenuViewModel : ViewModel() {
         } else user!!.username
     }
 
+    fun logout() {
+        model.logout()
+        user = null
+    }
+
     fun getUserPassword(): String = user!!.password
+    fun atualizaPassword(newPassword: String) {
+        viewModelScope.launch {
+            model.atualizaPassword(newPassword)
+        }
+    }
+
+    fun mudarFotoPerfil(novaFoto: Bitmap) {
+        viewModelScope.launch {
+            model.atualizaFotoPerfil(novaFoto)
+        }
+    }
+
+    fun getImage(): Bitmap? {
+        return runBlocking {
+            return@runBlocking model.getFotoPerfil()
+        }
+    }
 
 }

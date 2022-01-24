@@ -17,18 +17,19 @@ import edu.um.coffe.data.Localizacao
 class FavoritosFragment(): Fragment() {
     lateinit var favCafes : MutableList<Cafe>
     lateinit var viewModel : MenuViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.lista_cafesview,container,false)
         viewModel = ViewModelProvider(this)[MenuViewModel::class.java]
+        val view = inflater.inflate(R.layout.lista_cafesview,container,false)
         viewModel.getFavourites()
         favCafes = viewModel.favUser
 
         val rvFavs = view.findViewById<RecyclerView>(R.id.rvlistas)
-        var adapter = FavAdapter(favCafes,viewModel)
+        var adapter = CafeAdapter(favCafes,viewModel)
         rvFavs.adapter = adapter
         rvFavs.layoutManager = LinearLayoutManager(this.context)
 

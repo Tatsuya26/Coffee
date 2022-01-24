@@ -4,8 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
-@Database(entities = [User::class, Cafe::class,Favoritos::class,Historico::class,Horario::class], version = 4, exportSchema = false)
+
+@Database(entities = [User::class, Cafe::class,Favoritos::class,Historico::class], version = 20, exportSchema = false)
+@TypeConverters(Converter::class)
+
 abstract class CoffeeDatabase : RoomDatabase() {
     abstract val coffeDao : AppDao
 

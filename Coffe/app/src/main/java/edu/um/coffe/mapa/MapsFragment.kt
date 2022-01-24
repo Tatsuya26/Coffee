@@ -2,9 +2,11 @@ package edu.um.coffe.mapa
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
+import android.location.LocationManager
 import android.os.AsyncTask
 import androidx.fragment.app.Fragment
 
@@ -13,8 +15,11 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,6 +29,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.gms.tasks.Task
 import com.google.gson.Gson
@@ -40,12 +46,16 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
     private var locationPermissionGranted = false
     private lateinit var map : GoogleMap
     private var lastKnownLocation: Location? = null
+    private lateinit var locationRequester : LocationRequest
+    private lateinit var locationCallback : LocationCallback
+    private lateinit var polyline: Polyline
 
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
+        val lineoption = PolylineOptions()
+        polyline = map.addPolyline(lineoption)
         map.mapType = MAP_TYPE_HYBRID
-        updateLocationUI()
-        getDeviceLocation()
+        getLocationAccess()
     }
 
     override fun onCreateView(
@@ -62,6 +72,13 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+        view.findViewById<ImageButton>(R.id.zoomInbtn).setOnClickListener {
+            map.moveCamera(CameraUpdateFactory.zoomIn())
+        }
+
+        view.findViewById<ImageButton>(R.id.zoomOutbtn).setOnClickListener {
+            map.moveCamera(CameraUpdateFactory.zoomOut())
+        }
     }
 
     private fun getLocationPermission() {
@@ -114,42 +131,92 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
     }
 
 
-    @SuppressLint("MissingPermission")
-    private fun getDeviceLocation() {
-        /*
-         * Get the best and most recent location of the device, which may be null in rare
-         * cases when a location is not available.
-         */
-        try {
-            if (locationPermissionGranted) {
-                val locationResult = locationprovider.lastLocation
-                locationResult.addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        // Set the map's camera position to the current location of the device.
-                        lastKnownLocation =  task.result
-                        if (lastKnownLocation != null) {
-                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                LatLng(lastKnownLocation!!.latitude,
-                                    lastKnownLocation!!.longitude), 17F))
-                            map.addMarker(MarkerOptions().position(LatLng(lastKnownLocation!!.latitude,
-                                lastKnownLocation!!.longitude)).title("Localizacao atual"))
-                            map.addMarker(MarkerOptions().position(LatLng(latitude,longitude)).title("Cafe"))
-                            var url = getDirectionURL(
-                                LatLng(lastKnownLocation!!.latitude,lastKnownLocation!!.longitude),
-                                LatLng(latitude,longitude),
-                                "walking"
-                            )
-                            GetDirection(url).execute()
-                        }
-                    } else {
-                        map.moveCamera(CameraUpdateFactory
-                            .newLatLngZoom(LatLng(41.5607,-8.3962), 15.toFloat()))
-                        map?.uiSettings?.isMyLocationButtonEnabled = false
+
+
+    private fun getLocationAccess() {
+        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            map.isMyLocationEnabled = true
+            map.uiSettings.isMyLocationButtonEnabled = true
+            map.clear()
+            getLocationUpdates()
+        }
+        else
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1)
+    }
+
+    private fun getLocationUpdates() {
+        locationRequester = LocationRequest.create()
+        locationRequester.interval = 2000
+        locationRequester.fastestInterval = 1000
+        locationRequester.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                if (locationResult.locations.isNotEmpty()) {
+                    var location = locationResult.lastLocation
+                    if (location != null) {
+                        if (lastKnownLocation == null) map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                            LatLng(location.latitude,
+                                location.longitude), 17F))
+                        lastKnownLocation = location
+                        map.addMarker(MarkerOptions().position(LatLng(lastKnownLocation!!.latitude,
+                            lastKnownLocation!!.longitude)).title("Localizacao atual"))
+                        map.addMarker(MarkerOptions().position(LatLng(latitude,longitude)).title("Cafe"))
+                        val url = getDirectionURL(
+                            LatLng(lastKnownLocation!!.latitude,lastKnownLocation!!.longitude),
+                            LatLng(latitude,longitude),
+                            "walking"
+                        )
+                        GetDirection(url).execute()
                     }
                 }
             }
-        } catch (e: SecurityException) {
         }
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequester)
+        val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
+        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
+        task.addOnSuccessListener {
+            startLocationUpdates()
+        }
+        task.addOnFailureListener{exception ->
+            if (exception is ResolvableApiException){
+                // Location settings are not satisfied, but this can be fixed
+                // by showing the user a dialog.
+                try {
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+                    exception.startResolutionForResult(requireActivity(),
+                        1)
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    // Ignore the error.
+                }
+            }
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (locationPermissionGranted) startLocationUpdates()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopLocationUpdates()
+    }
+
+    private fun stopLocationUpdates() {
+        locationprovider.removeLocationUpdates(locationCallback)
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private fun startLocationUpdates() {
+        locationprovider.requestLocationUpdates(
+            locationRequester,
+            locationCallback,
+            Looper.getMainLooper()
+        )
     }
 
     private fun getDirectionURL(origin : LatLng,destination: LatLng,mode : String) : String{
@@ -191,7 +258,7 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
                 lineoption.color(Color.RED)
                 lineoption.geodesic(true)
             }
-            map.addPolyline(lineoption)
+            polyline = map.addPolyline(lineoption)
         }
     }
 

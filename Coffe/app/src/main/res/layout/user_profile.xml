@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#D4D4D4"
-    android:padding="10dp">
+    android:padding="10dp"
+    tools:context=".menu.UserProfileFragment">
 
 
     <ImageView
@@ -14,9 +15,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="4dp"
+        android:maxHeight="150dp"
+        android:maxWidth="150dp"
         android:contentDescription="Imagem do user"
-        android:src="@drawable/user"
         app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/user"
         app:layout_constraintTop_toTopOf="parent"
         />
 
@@ -92,7 +95,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/underline"
         app:tabIndicatorColor="#2b1c14"
-        app:tabTextColor="#2b1c14"></com.google.android.material.tabs.TabLayout>
+        app:tabTextColor="#2b1c14">
+        tools:ignore="SpeakableTextPresentCheck">
+    </com.google.android.material.tabs.TabLayout>
+
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpageuser"

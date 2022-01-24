@@ -1,4 +1,4 @@
-?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -39,11 +39,9 @@
 
     <ImageView
         android:id="@+id/imagemCafe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:contentDescription="Imagem de um cafe"
-        android:minWidth="100dp"
-        android:minHeight="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,43 +69,43 @@
         android:id="@+id/cafeMoreInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ABABAB"
+        android:background="@drawable/text_stroke4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerCafe">
 
+
         <TextView
             android:id="@+id/telefoneCafe"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity=""
-            android:layout_height="wrap_content"
             android:text="Telefone : 919275976"
-            android:textSize="25sp"
-            android:textColor="#393939"
+            android:textColor="#0E0E0E"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/emailCafe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email: LI4@GMAIL.COM"
-            android:textSize="25sp"
-            android:textColor="#393939"
-            app:layout_constraintTop_toBottomOf="@id/telefoneCafe"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/moradaCafe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Morada = Gualtar"
-            android:textSize="25sp"
-            android:textColor="#393939"
-            app:layout_constraintTop_toBottomOf="@id/emailCafe"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:text="Morada : R. Dom Frei Caetano Brandão 61, 4700-031 Braga"
+            android:textColor="#0E0E0E"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horarioCafe" />
 
+        <TextView
+            android:id="@+id/horarioCafe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Horario : 10:00 - 19:00"
+            android:textColor="#0E0E0E"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/telefoneCafe" />
 
         <ImageButton
             android:id="@+id/favorito"

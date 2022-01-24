@@ -12,22 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import edu.um.coffe.R
+import android.graphics.Bitmap
 
-import androidx.core.app.ActivityCompat.startActivityForResult
-
-
-
-import android.util.Log
-import android.widget.EditText
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.button.MaterialButton
-import edu.um.coffe.data.User
-import edu.um.coffe.login.LoginFragment
-import edu.um.coffe.login.UserLoginFragment
-
+import android.graphics.drawable.BitmapDrawable
+import androidx.core.graphics.drawable.toBitmap
 
 
 class UserProfileFragment : Fragment() {
@@ -55,7 +47,7 @@ class UserProfileFragment : Fragment() {
             else return HistoricoFragment()
         }
     }
-    
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,6 +65,7 @@ class UserProfileFragment : Fragment() {
 
 
         viewModel = ViewModelProvider(this)[MenuViewModel::class.java]
+
         val nomeUser = view.findViewById<TextView>(R.id.usernameProfile)
         nomeUser.text = viewModel.getUsername()
         viewpager = view.findViewById(R.id.viewpageuser)
@@ -85,7 +78,7 @@ class UserProfileFragment : Fragment() {
             else tab.text = "Historico"
         }.attach()
 
-        var changePassword = view.findViewById<MaterialButton>(R.id.mudarpass)
+        val changePassword = view.findViewById<MaterialButton>(R.id.mudarpass)
         changePassword.setOnClickListener {
             requireActivity().supportFragmentManager.apply {
                     beginTransaction()
@@ -95,6 +88,8 @@ class UserProfileFragment : Fragment() {
             }
         }
 
+        val bitmap = viewModel.getImage()
+        if (bitmap != null) userImage.setImageBitmap(viewModel.getImage())
         return view
     }
 
@@ -123,6 +118,9 @@ class UserProfileFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == IMAGE_REQUEST_CODE) {
             userImage.setImageURI(data?.data)
+            val bitmap = userImage.drawable.toBitmap(400,400)
+            viewModel.mudarFotoPerfil(bitmap)
+            userImage.setImageBitmap(viewModel.getImage())
         }
     }
 }

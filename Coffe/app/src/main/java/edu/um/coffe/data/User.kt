@@ -1,5 +1,6 @@
 package edu.um.coffe.data
 
+import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -7,6 +8,7 @@ import androidx.room.PrimaryKey
 data class User(
     @PrimaryKey
     val username: String,
-    val password: String,
-    val email: String
+    var password: String,
+    val email: String,
+    var foto : Bitmap
 )

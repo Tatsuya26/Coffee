@@ -1,5 +1,8 @@
 package edu.um.coffe.menu
 
+import android.annotation.SuppressLint
+
+import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +18,9 @@ import edu.um.coffe.MainActivity
 import edu.um.coffe.R
 import edu.um.coffe.data.Cafe
 import edu.um.coffe.mapa.MapsFragment
+import org.w3c.dom.Text
+import java.time.Duration
+import java.time.LocalTime
 
 class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : RecyclerView.Adapter<CafeAdapter.CafeViewHolder>() {
     lateinit var fav_button: AppCompatImageButton
@@ -25,25 +31,37 @@ class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : Recycl
         return CafeViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CafeViewHolder, position: Int) {
         holder.itemView.apply {
             fav_button = findViewById(R.id.favorito)
             fav_button.setOnClickListener {
-                if(viewModel.isCafeInFavoritos(cafes[position].idCafe))
+                if(viewModel.isCafeInFavoritos(cafes[position].idCafe)) {
                     viewModel.removerFavorito(cafes[position].idCafe)
-                else
+                }
+                else {
                     viewModel.adicionarFavorito(cafes[position].idCafe)
+                }
                 fav_button.setImageResource(R.drawable.fav2)
                 notifyItemChanged(position)
                 fav_button.setImageResource(R.drawable.fav)
                 notifyItemChanged(position)
             }
+
+            val res = context.resources.getIdentifier(cafes[position].fotos,"drawable",context.packageName)
             findViewById<TextView>(R.id.nomeCafe).text = cafes[position].nome
             findViewById<TextView>(R.id.classificacaoCafe).text = cafes[position].rating.toString()
-            findViewById<ImageView>(R.id.imagemCafe).setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_home_24))
-            findViewById<TextView>(R.id.telefoneCafe).text = cafes[position].contacto.telefone
-            findViewById<TextView>(R.id.emailCafe).text = cafes[position].contacto.email
+            findViewById<ImageView>(R.id.imagemCafe).setImageDrawable(resources.getDrawable(res))
+
+            var telefone = "Telefone: " + cafes[position].contacto.telefone.replace("+351", "")
+            findViewById<TextView>(R.id.telefoneCafe).text = telefone
             findViewById<TextView>(R.id.moradaCafe).text = cafes[position].localizacao.endereco
+            cafes[position].horario.apply {
+                var timeAbertura = LocalTime.of(this.horaAbertura,minAbertura).toString()
+                var timeFecho = LocalTime.of(this.horaFecho,minFecho).toString()
+                findViewById<TextView>(R.id.horarioCafe).setText("Horário: $timeAbertura - $timeFecho")
+
+            }
 
             val visivel = cafes[position].visibilidade
             findViewById<ConstraintLayout>(R.id.cafeMoreInfo).visibility = if (visivel) View.VISIBLE else View.GONE
@@ -56,13 +74,13 @@ class CafeAdapter (var cafes : List<Cafe>,var viewModel: MenuViewModel) : Recycl
             findViewById<ImageButton>(R.id.buttonformap).setOnClickListener {
                 viewModel.adicionarHistorico(cafes[position].idCafe)
                 val activity = this.context as MainActivity
-                val commit = activity.supportFragmentManager?.beginTransaction()?.replace(
+                val commit = activity.supportFragmentManager.beginTransaction().replace(
                     R.id.container,
                     MapsFragment.getInstance(
                         cafes[position].localizacao.latitude,
                         cafes[position].localizacao.longitude
                     )
-                )?.addToBackStack(null)?.commit()
+                ).addToBackStack(null).commit()
             }
 
         }
