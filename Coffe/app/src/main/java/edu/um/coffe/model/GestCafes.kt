@@ -5,8 +5,9 @@ import edu.um.coffe.data.Cafe
 import edu.um.coffe.data.User
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import java.time.LocalDateTime
 
-class GestCafes (private val appDao: AppDao) {
+class GestCafes (private val appDao: DataBaseAcess) {
 
     var user : User? = null
     private var cafes: List<Cafe> = appDao.getCafes();
@@ -35,7 +36,7 @@ class GestCafes (private val appDao: AppDao) {
 
     suspend fun addToFavoritos(idCafe: String): Boolean{
         return if(idCafeExiste(idCafe) && user != null) {
-            var fav : Favoritos = Favoritos(idCafe,user!!.username)
+            var fav : Favoritos = Favoritos(idCafe,user!!.username, LocalDateTime.now())
             appDao.addFavoriteCafe(fav)
             true
         } else
@@ -59,7 +60,7 @@ class GestCafes (private val appDao: AppDao) {
 
     suspend fun addToHistorico(idCafe: String) {
         if(idCafeExiste(idCafe) && user != null) {
-            var hist : Historico = Historico(idCafe,user!!.username)
+            var hist : Historico = Historico(idCafe,user!!.username, LocalDateTime.now())
             appDao.addHistoricoCafe(hist)
         }
     }
@@ -77,7 +78,7 @@ class GestCafes (private val appDao: AppDao) {
 
     suspend fun getHistorico() : MutableList<Cafe> {
         if (user == null) return mutableListOf()
-        var hist : List<Historico> = appDao.getHistoricoFromUser(user!!.username)
+        var hist : List<Historico> = appDao.getHistoricoFromUser(user!!.username).sortedByDescending { it.dataAdicionado }
         var cafesFav = mutableListOf<Cafe>()
         for (fav in hist) {
             var c :Cafe = appDao.getCafe(fav.idCafe)
@@ -87,8 +88,10 @@ class GestCafes (private val appDao: AppDao) {
     }
 
     suspend fun removeFavorito(idCafe: String) {
-        var fav = Favoritos(idCafe,user!!.username)
-        appDao.removeFavorito(fav)
+        val listaFavs = appDao.getFavoriteCafesFromUser(user!!.username)
+        for (i in listaFavs.indices) {
+            if (listaFavs[i].idCafe.compareTo(idCafe) == 0) appDao.removeFavorito(listaFavs[i])
+        }
     }
 
     fun logout() {
