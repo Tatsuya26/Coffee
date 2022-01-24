@@ -2,8 +2,11 @@ package edu.um.coffe.mapa
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
 import android.location.Location
 import android.location.LocationManager
@@ -27,15 +30,16 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.MAP_TYPE_HYBRID
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.Polyline
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.*
 import com.google.android.gms.tasks.Task
 import com.google.gson.Gson
 import edu.um.coffe.R
 import okhttp3.OkHttpClient
 import okhttp3.Request
+
+
+
+
 
 class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
 
@@ -49,6 +53,8 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
     private lateinit var locationRequester : LocationRequest
     private lateinit var locationCallback : LocationCallback
     private lateinit var polyline: Polyline
+    private lateinit var polylineOld: Polyline
+    private lateinit var cafeMarker : Marker
 
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
@@ -68,6 +74,15 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
         return view
     }
 
+    private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+        return ContextCompat.getDrawable(context, vectorResId)?.run {
+            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+            val bitmap = Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
+            draw(Canvas(bitmap))
+            BitmapDescriptorFactory.fromBitmap(bitmap)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
@@ -78,6 +93,13 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
 
         view.findViewById<ImageButton>(R.id.zoomOutbtn).setOnClickListener {
             map.moveCamera(CameraUpdateFactory.zoomOut())
+        }
+        view.findViewById<ImageButton>(R.id.cameraLocation).setOnClickListener {
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                LatLng(
+                    lastKnownLocation!!.latitude,
+                    lastKnownLocation!!.longitude
+                ), 17F))
         }
     }
 
@@ -146,21 +168,23 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
 
     private fun getLocationUpdates() {
         locationRequester = LocationRequest.create()
-        locationRequester.interval = 2000
-        locationRequester.fastestInterval = 1000
+        locationRequester.interval = 5000
+        locationRequester.fastestInterval = 2000
         locationRequester.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 if (locationResult.locations.isNotEmpty()) {
                     var location = locationResult.lastLocation
                     if (location != null) {
-                        if (lastKnownLocation == null) map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                            LatLng(location.latitude,
-                                location.longitude), 17F))
+                        if (lastKnownLocation == null) {
+                            map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                                LatLng(location.latitude,
+                                    location.longitude), 17F))
+                            cafeMarker = map.addMarker(MarkerOptions().position(LatLng(latitude,longitude)).title("Cafe"))!!
+                            cafeMarker.setIcon(bitmapDescriptorFromVector(requireContext(),R.drawable.ic_baseline_coffee_24))
+                            cafeMarker.setAnchor(0.5f,0.5f)
+                        }
                         lastKnownLocation = location
-                        map.addMarker(MarkerOptions().position(LatLng(lastKnownLocation!!.latitude,
-                            lastKnownLocation!!.longitude)).title("Localizacao atual"))
-                        map.addMarker(MarkerOptions().position(LatLng(latitude,longitude)).title("Cafe"))
                         val url = getDirectionURL(
                             LatLng(lastKnownLocation!!.latitude,lastKnownLocation!!.longitude),
                             LatLng(latitude,longitude),
@@ -258,7 +282,9 @@ class MapsFragment(var latitude : Double,var longitude : Double) : Fragment() {
                 lineoption.color(Color.RED)
                 lineoption.geodesic(true)
             }
+            polylineOld = polyline
             polyline = map.addPolyline(lineoption)
+            polylineOld.remove()
         }
     }
 

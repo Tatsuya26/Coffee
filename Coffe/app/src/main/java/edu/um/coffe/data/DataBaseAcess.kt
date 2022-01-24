@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
-interface AppDao {
+interface DataBaseAcess {
 
     @Insert (onConflict = OnConflictStrategy.IGNORE)
     suspend fun addCafe(cafe : Cafe)
