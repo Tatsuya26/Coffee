@@ -1,5 +1,5 @@
 # Coffee
-  Aplicação mobile “Coffee?” para plataforma android que fornece a um utilizador uma lista de cafés no centro de braga, informações sobre os mesmos  e permite que este se guie até ela através da sua localização.
+  Aplicação mobile “Coffee?” para plataforma android que fornece a um utilizador uma lista de cafés no centro de braga, informações sobre os mesmos  e permite que este se guie até os mesmos através da sua localização.
 
 # Funcionalidades
   • Autenticar como utilizador.
